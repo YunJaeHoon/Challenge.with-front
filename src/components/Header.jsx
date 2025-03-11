@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { LanguageContext, ThemeContext } from "../App";
+import style from "./HeaderStyle.module.css"
 
 function Header() {
 
@@ -8,10 +9,10 @@ function Header() {
   const { language } = useContext(LanguageContext);
 
   return (
-    <div>
-      {theme}
-      {language}
-      헤더입니다.
+    <div className={style["container"]}>
+      <div>{theme}</div>
+      <div>{language}</div>
+      <div>헤더입니다.</div>
     </div>
   );
 }
