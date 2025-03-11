@@ -3,23 +3,34 @@ import Header from './components/header'
 import Footer from './components/footer'
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
 import HomePage from './pages/HomePage'
-import { useEffect } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import ErrorPage from './pages/ErrorPage'
+
+// Context API
+export const ThemeContext = createContext();
+export const LanguageContext = createContext();
 
 function App() {
+
+  // Context
+  const [theme, setTheme] = useState("LIGHT");
+  const [language, setLanguage] = useState("KOREAN");
+
   return (
     <div>
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+      <LanguageContext.Provider value={{ language, setLanguage }}>
 
-      <Header />
-      
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/error" element={<ErrorPage />} />
-      </Routes>
+        <Header />
+        
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
 
-      <Footer />
+        <Footer />
 
+      </LanguageContext.Provider>
+      </ThemeContext.Provider>
     </div>
   )
 }
