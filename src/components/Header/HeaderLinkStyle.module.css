@@ -1,0 +1,29 @@
+.link {
+  position: relative;
+  display: inline-block;
+  
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  color: black;
+}
+
+.link::after {
+  width: 150%;
+  height: 150%;
+  z-index: -1;
+  content: "";
+
+  position: absolute;
+  left: -25%;
+  bottom: -25%;
+  
+  background-color: white;
+  transition: background-color 0.3s ease;
+
+  border-radius: 100px;
+}
+
+.link:hover::after {
+  background-color: #DFDFDF;
+}

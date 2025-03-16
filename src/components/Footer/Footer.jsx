@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { LanguageContext, ThemeContext } from "../App";
+import { LanguageContext, ThemeContext } from "../../App";
 
 function Footer() {
 

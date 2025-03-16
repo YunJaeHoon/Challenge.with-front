@@ -1,6 +1,6 @@
 import './App.css'
-import Header from './components/header'
-import Footer from './components/footer'
+import Header from './components/Header/Header'
+import Footer from './components/Footer/Footer'
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import { createContext, useEffect, useState } from 'react'
