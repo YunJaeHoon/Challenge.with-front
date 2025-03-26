@@ -1,17 +1,17 @@
 import { Link } from "react-router-dom";
 
-import style from "./HeaderLinkStyle.module.css"
+import style from "./HeaderButtonStyle.module.css"
 import { useContext } from "react";
 import { LanguageContext, ThemeContext } from "../../App";
 
-function HeaderLink(props) {
+function HeaderButton(props) {
 
   // Context
   const { language } = useContext(LanguageContext);
 
   return (
-    <Link id={style["link"]} to={props.link}>{props.name}</Link>
+    <Link id={style["button"]} to={props.link}>{props.name}</Link>
   );
 }
 
-export default HeaderLink
+export default HeaderButton
