@@ -60,15 +60,7 @@ function LoginPage() {
       const accessToken = response.data?.data?.accessToken;
 
       axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
-
       window.localStorage.setItem("accessToken", accessToken);
-
-      if(rememberMe)
-      {
-        const refreshToken = response.data?.data?.refreshToken;
-
-        window.localStorage.setItem("refreshToken", refreshToken);
-      }
 
       navigate("/")
     })
@@ -149,6 +141,11 @@ function LoginPage() {
           <img src={googleIcon} className={style["oauth2-icon"]} onClick={googleLogin} />
           <img src={kakaoIcon} className={style["oauth2-icon"]} onClick={kakaoLogin} />
           <img src={naverIcon} className={style["oauth2-icon"]} onClick={naverLogin} />
+        </div>
+
+        <div id={style["join-container"]}>
+          <div id={style["join-description"]}>Challenge.with이 처음이신가요?</div>
+          <Link id={style["join-link"]} to="/join">계정 생성</Link>
         </div>
 
       </div>

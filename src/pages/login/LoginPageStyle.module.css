@@ -174,7 +174,27 @@
   justify-content: space-between;
 
   margin-top: 30px;
+}
+
+#join-container {
+  width: 255px;
+  
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 30px;
   margin-bottom: 35px;
+}
+
+#join-description {
+  font-size: 14px;
+  color: #525252
+}
+
+#join-link {
+  font-size: 14px;
+  font-weight: 550;
+  color: #525252
 }
 
 .input-container {

@@ -10,13 +10,11 @@ function OAuth2CallbackPage() {
 
   useEffect(() => {
     const accessToken = getCookie("accessToken");
-    const refreshToken = getCookie("refreshToken");
 
-    if (accessToken && refreshToken)
+    if (accessToken)
     {
       axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
       window.localStorage.setItem("accessToken", accessToken);
-      window.localStorage.setItem("refreshToken", refreshToken);
 
       navigate("/");
     } else {
