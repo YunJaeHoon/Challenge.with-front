@@ -4,23 +4,55 @@ import style from "./AppStyle.module.css"
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
 import HomePage from './pages/HomePage'
-import LoginPage from './pages/Login/LoginPage'
+import LoginPage from './pages/login/LoginPage.jsx'
 import axios from 'axios'
 import OAuth2CallbackPage from './pages/login/OAuth2CallbackPage'
+import { sendApi } from './utils/apiUtil.js'
 
 // Context API
-export const ThemeContext = createContext();
+export const AccountRoleContext = createContext();
 export const LanguageContext = createContext();
 
 function App() {
 
   // Context
-  const [theme, setTheme] = useState("LIGHT");
   const [language, setLanguage] = useState("KOREAN");
+  const [accountRole, setAccountRole] = useState(null);
+
+  // 로그인 여부 확인
+  useEffect(() => {
+
+    const getRole = async () => {
+  
+      try {
+
+        // Access token 재발급
+        const accessTokenDto = await sendApi("/api/reissue-access-token", "POST", false, {});
+        const accessToken = accessTokenDto.accessToken;
+  
+        axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
+        window.localStorage.setItem("accessToken", accessToken);
+
+      } finally {
+
+        // 권한 확인
+        try {
+          const role = await sendApi("/api/user/role", "GET", true, {});
+          setAccountRole(role);
+        } catch (error) {
+          setAccountRole(undefined);
+        }
+
+      }
+    };
+  
+    getRole();
+
+  }, []);  
 
   return (
     <div id={style["container"]}>
-      <ThemeContext.Provider value={{ theme, setTheme }}>
+      <AccountRoleContext.Provider value={{ accountRole, setAccountRole }}>
       <LanguageContext.Provider value={{ language, setLanguage }}>
 
         <Header isLogin={true} />
@@ -36,7 +68,7 @@ function App() {
         <Footer />
 
       </LanguageContext.Provider>
-      </ThemeContext.Provider>
+      </AccountRoleContext.Provider>
     </div>
   )
 }

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import style from "./HeaderLinkStyle.module.css"
 import { useContext } from "react";
-import { LanguageContext, ThemeContext } from "../../App";
+import { LanguageContext } from "../../App";
 
 function HeaderLink(props) {
 

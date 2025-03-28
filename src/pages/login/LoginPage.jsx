@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
-import { LanguageContext } from "../../App";
+import { AccountRoleContext, LanguageContext } from "../../App";
 import axios from "axios";
 import style from "./LoginPageStyle.module.css"
 import logoImage from "../../assets/LogoImage.svg"
@@ -12,6 +12,7 @@ import closeEyesIcon from "../../assets/CloseEyesIcon.svg"
 import googleIcon from "../../assets/GoogleIcon.svg"
 import kakaoIcon from "../../assets/KakaoIcon.svg"
 import naverIcon from "../../assets/NaverIcon.svg"
+import { sendApi } from "../../utils/apiUtil";
 
 
 function LoginPage() {
@@ -22,6 +23,7 @@ function LoginPage() {
 
   // Context
   const { language } = useContext(LanguageContext);
+  const { setAccountRole } = useContext(AccountRoleContext);
 
   // state
   const [email, setEmail] = useState("");                                           // 이메일
@@ -61,6 +63,13 @@ function LoginPage() {
 
       axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
       window.localStorage.setItem("accessToken", accessToken);
+
+      const getRole = async () => {
+        const role = await sendApi("/api/user/role", "GET", true, {});
+        setAccountRole(role);
+      };
+
+      getRole();
 
       navigate("/")
     })

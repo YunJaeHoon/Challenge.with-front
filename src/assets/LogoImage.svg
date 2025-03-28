@@ -1,6 +1,7 @@
 <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_1_9)">
 <rect x="3" y="4" width="9" height="33" fill="#FFD500"/>
+<rect x="12" y="11" width="35" height="37" fill="white"/>
 <rect x="12" y="39" width="35" height="9" fill="#FF7700"/>
 <rect x="39" y="11" width="8" height="37" fill="#FF7700"/>
 <rect x="3" y="4" width="34" height="7" fill="#FFD500"/>
