@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
-import { AccountRoleContext, LanguageContext } from "../../App";
+import { LanguageContext } from "../../App";
 import axios from "axios";
 import style from "./LoginPageStyle.module.css"
 import logoImage from "../../assets/LogoImage.svg"
@@ -23,7 +23,6 @@ function LoginPage() {
 
   // Context
   const { language } = useContext(LanguageContext);
-  const { setAccountRole } = useContext(AccountRoleContext);
 
   // state
   const [email, setEmail] = useState("");                                           // 이메일
@@ -64,14 +63,8 @@ function LoginPage() {
       axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
       window.localStorage.setItem("accessToken", accessToken);
 
-      const getRole = async () => {
-        const role = await sendApi("/api/user/role", "GET", true, {});
-        setAccountRole(role);
-      };
-
-      getRole();
-
-      navigate("/")
+      navigate("/");
+      window.location.reload();
     })
     .catch((error) => {
       setErrorMessage(error.response?.data?.message ?? "예기치 못한 에러가 발생하였습니다.");

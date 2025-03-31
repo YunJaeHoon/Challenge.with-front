@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { AccountRoleContext, LanguageContext } from "../../App";
+import { LanguageContext } from "../../App";
 import { Link } from "react-router-dom";
 
 import style from "./HeaderStyle.module.css"
@@ -18,9 +18,9 @@ function Header() {
 
   // Context
   const { language } = useContext(LanguageContext);
-  const { accountRole } = useContext(AccountRoleContext);
 
   // State
+  const [accountRole, setAccountRole] = useState(null);
   const [hamburgerIsClicked, setHamburgerIsClicked] = useState(false);          // 햄버거를 클릭했는가?
   const [email, setEmail] = useState("");                                       // 이메일
   const [nickname, setNickname] = useState("");                                 // 닉네임
@@ -30,31 +30,30 @@ function Header() {
 
   // 사용자 기본 정보 가져오기
   useEffect(() => {
+    
+    const getBasicUserInfo = async () => {
 
-    if(accountRole != null && accountRole != undefined)
-    {
-      const getBasicUserInfo = async () => {
+      try {
+        const basicUserInfo = await sendApi("/api/user/basic-info", "GET", true, {});
 
-        if (accountRole)
+        if (basicUserInfo)
         {
-          const basicUserInfo = await sendApi("/api/user/basic-info", "GET", true, {});
-
-          if (basicUserInfo)
-          {
-            setEmail(basicUserInfo.email);
-            setNickname(basicUserInfo.nickname);
-            setProfileImageUrl(basicUserInfo.profileImageUrl);
-            setIsPremium(basicUserInfo.isPremium);
-            setCountUnreadNotification(basicUserInfo.countUnreadNotification);
-          }
+          setEmail(basicUserInfo.email);
+          setNickname(basicUserInfo.nickname);
+          setProfileImageUrl(basicUserInfo.profileImageUrl);
+          setAccountRole(basicUserInfo.role);
+          setIsPremium(basicUserInfo.isPremium);
+          setCountUnreadNotification(basicUserInfo.countUnreadNotification);
         }
-        
+      } catch(e) {
+        setAccountRole(undefined);
       }
       
-      getBasicUserInfo();
     }
+    
+    getBasicUserInfo();
 
-  }, [accountRole]);
+  }, []);
 
   // 햄버거 클릭 함수
   function clickHamburger() {
@@ -78,22 +77,30 @@ function Header() {
         </div>
 
         {
-          accountRole != null ?
+          accountRole === null ? (
 
-          <div id={style["right-container"]}>
-            <img src={countUnreadNotification > 0 ? notificationIcon_Unread : notificationIcon_Read} id={style["notification-icon"]} />
-            <img src={profileImageUrl} id={style["profile-icon"]} />
-            <Hamburger clickHamburgerFunction={clickHamburger} />
-          </div>
-          
-          :
+            <div id={style["right-container"]}>
+              <div id={style["loading-right-container"]}></div>
+            </div>
 
-          <div id={style["right-container"]}>
-            <Link id={style["login-button"]} to="/login">
-              <img src={loginIcon} id={style["login-icon"]} />
-            </Link>
-            <Hamburger clickHamburgerFunction={clickHamburger} />
-          </div>
+          ) : accountRole === undefined ? (
+
+            <div id={style["right-container"]}>
+              <Link id={style["login-button"]} to="/login">
+                <img src={loginIcon} id={style["login-icon"]} />
+              </Link>
+              <Hamburger clickHamburgerFunction={clickHamburger} />
+            </div>
+
+          ) : (
+
+            <div id={style["right-container"]}>
+              <img src={countUnreadNotification > 0 ? notificationIcon_Unread : notificationIcon_Read} id={style["notification-icon"]} />
+              <img src={profileImageUrl} id={style["profile-icon"]} />
+              <Hamburger clickHamburgerFunction={clickHamburger} />
+            </div>
+
+          )
         }
 
       </div>
