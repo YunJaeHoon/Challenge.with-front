@@ -12,7 +12,6 @@ import closeEyesIcon from "../../assets/CloseEyesIcon.svg"
 import googleIcon from "../../assets/GoogleIcon.svg"
 import kakaoIcon from "../../assets/KakaoIcon.svg"
 import naverIcon from "../../assets/NaverIcon.svg"
-import { sendApi } from "../../utils/apiUtil";
 
 
 function LoginPage() {
@@ -24,7 +23,7 @@ function LoginPage() {
   // Context
   const { language } = useContext(LanguageContext);
 
-  // state
+  // State
   const [email, setEmail] = useState("");                                           // 이메일
   const [password, setPassword] = useState("");                                     // 비밀번호
   const [errorMessage, setErrorMessage] = useState(location.state?.errorMessage);   // 에러 메시지
@@ -49,6 +48,7 @@ function LoginPage() {
   function login(e) {
     e.preventDefault();
     setIsWaitingLogin(true);
+    setErrorMessage("");
 
     axios.post("/api/login", {
       "email": email,
@@ -134,9 +134,9 @@ function LoginPage() {
         </form>
 
         <div id={style["or-container"]}>
-          <div id={style["or-line"]}></div>
+          <div className={style["or-line"]}></div>
           <div id={style["or-text"]}>또는</div>
-          <div id={style["or-line"]}></div>
+          <div className={style["or-line"]}></div>
         </div>
 
         <div id={style["oauth2-container"]}>
@@ -147,7 +147,7 @@ function LoginPage() {
 
         <div id={style["join-container"]}>
           <div id={style["join-description"]}>Challenge.with이 처음이신가요?</div>
-          <Link id={style["join-link"]} to="/join">계정 생성</Link>
+          <Link id={style["join-link"]} to="/join/method">계정 생성</Link>
         </div>
 
       </div>

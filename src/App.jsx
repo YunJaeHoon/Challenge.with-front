@@ -8,6 +8,8 @@ import LoginPage from './pages/login/LoginPage.jsx'
 import axios from 'axios'
 import OAuth2CallbackPage from './pages/login/OAuth2CallbackPage'
 import { sendApi } from './utils/apiUtil.js'
+import SelectJoinMethodPage from './pages/join/SelectJoinMethodPage.jsx'
+import JoinPage from './pages/join/JoinPage.jsx'
 
 // Context API
 export const LanguageContext = createContext();
@@ -46,6 +48,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/oauth2-callback" element={<OAuth2CallbackPage />} />
+            <Route path="/join/method" element={<SelectJoinMethodPage />} />
+            <Route path="/join" element={<JoinPage />} />
           </Routes>
         </div>
 

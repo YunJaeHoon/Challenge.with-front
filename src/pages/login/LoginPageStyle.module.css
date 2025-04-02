@@ -15,7 +15,7 @@
   flex-direction: column;
   align-items: center;
 
-  background-color: rgb(255, 255, 255);
+  background-color: #FFFFFF;
 }
 
 #logo-image {
@@ -32,7 +32,7 @@
   flex-direction: column;
   align-items: center;
 
-  margin-top: 15px;
+  margin-top: 8px;
 }
 
 #password-visibility-icon {
@@ -70,8 +70,8 @@
 }
 
 #remember-me-checkbox {
-  width: 12px;
-  height: 12px;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
 
   border: 2px solid black;
@@ -151,7 +151,7 @@
   margin-top: 30px;
 }
 
-#or-line {
+.or-line {
   width: 43%;
   height: 0;
 
@@ -176,25 +176,25 @@
   margin-top: 30px;
 }
 
-#join-container {
-  width: 255px;
-  
+#join-container {  
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
+  align-items: center;
 
   margin-top: 30px;
-  margin-bottom: 35px;
 }
 
 #join-description {
   font-size: 0.875rem;
-  color: #525252
+  color: #525252;
 }
 
 #join-link {
   font-size: 0.875rem;
   font-weight: 550;
-  color: #525252
+  color: #000000;
+
+  margin-left: 15px
 }
 
 .input-container {
@@ -234,8 +234,14 @@
   height: 42px;
   cursor: pointer;
 
+  transition: filter 0.1s linear;
+
   border: 2px solid #525252;
   border-radius: 10px;
+}
+
+.oauth2-icon:hover {
+  filter: brightness(72%);
 }
 
 
