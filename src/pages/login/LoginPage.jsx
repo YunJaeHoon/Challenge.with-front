@@ -79,12 +79,12 @@ function LoginPage() {
 
   // 카카오 로그인
   function kakaoLogin() {
-    window.location.href = serverUrl + "/oauth2/authorization/kakao";
+    window.location.href = serverUrl + "/oauth2/authorization/kakao?prompt=login";
   }
 
   // 네이버 로그인
   function naverLogin() {
-    window.location.href = serverUrl + "/oauth2/authorization/naver";
+    window.location.href = serverUrl + "/oauth2/authorization/naver?auth_type=reprompt";
   }
   
   return (

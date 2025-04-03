@@ -330,16 +330,14 @@
   }
 
   .item-error-message {
-    font-weight: 500;
+    font-weight: 550;
   }
   
   #join-error-message {
-    font-weight: 500;
+    font-weight: 550;
   }
 
   #join-button {
     height: 40px;
-
-    font-weight: 550;
   }
 }

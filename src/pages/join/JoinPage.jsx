@@ -222,7 +222,6 @@ function JoinPage() {
     }
 
     try {
-
       await sendApi(
         "/api/send-verification-code",
         "POST",
@@ -232,16 +231,11 @@ function JoinPage() {
 
       setSentCode(true);
       setEmailErrorMessage("");
-
     } catch(error) {
-
       setSentCode(false);
       setEmailErrorMessage("이메일 전송 중 에러가 발생하였습니다.");
-
     } finally {
-
       setSendingCode(false);
-      
     }
   }
 
@@ -280,7 +274,6 @@ function JoinPage() {
       } else if(errorCode === "ALREADY_EXISTING_USER") {
         setEmailErrorMessage("이미 사용 중인 이메일입니다.\n다른 이메일을 사용해주시기 바랍니다.");
         setSentCode(false);
-        setEmail("");
         setValidEmail(false);
       } else {
         setEmailErrorMessage("예기치 않은 에러가 발생하였습니다.");
