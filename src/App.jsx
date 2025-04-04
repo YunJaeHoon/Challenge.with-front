@@ -14,33 +14,49 @@ import ResetPasswordPage from './pages/reset-password/ResetPasswordPage.jsx'
 
 // Context API
 export const LanguageContext = createContext();
+export const AccountRoleContext = createContext();
 
 function App() {
 
   // Context
   const [language, setLanguage] = useState("KOREAN");
+  const [accountRole, setAccountRole] = useState(null);
 
-  // Access token 재발급
+  // Access token 재발급 및 계정 권한 확인
   useEffect(() => {
 
-    const getRole = async () => {
+    const getAccountRole = async () => {
+      try {
 
-      // Access token 재발급
-      const accessTokenDto = await sendApi("/api/reissue-access-token", "POST", false, {});
-      const accessToken = accessTokenDto.accessToken;
+        const accessTokenDto = await sendApi("/api/reissue-access-token", "POST", false, {});
 
-      axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
-      window.localStorage.setItem("accessToken", accessToken);
-      
+        if (accessTokenDto) {
+          const accessToken = accessTokenDto.accessToken;
+  
+          axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
+          window.localStorage.setItem("accessToken", accessToken);
+        }
+
+      } finally {
+
+        try {
+          const accountRoleDto = await sendApi("/api/user/role", "GET", true, {});
+          setAccountRole(accountRoleDto.role);
+        } catch (e) {
+          setAccountRole(undefined);
+        }
+        
+      }
     };
   
-    getRole();
+    getAccountRole();
 
   }, []);  
 
   return (
     <div id={style["container"]}>
       <LanguageContext.Provider value={{ language, setLanguage }}>
+      <AccountRoleContext.Provider value={{ accountRole, setAccountRole }}>
 
         <Header isLogin={true} />
         
@@ -57,6 +73,7 @@ function App() {
 
         <Footer />
 
+      </AccountRoleContext.Provider>
       </LanguageContext.Provider>
     </div>
   )

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { LanguageContext } from "../../App";
+import { AccountRoleContext, LanguageContext } from "../../App";
 import { Link } from "react-router-dom";
 
 import style from "./HeaderStyle.module.css"
@@ -17,10 +17,10 @@ import { sendApi } from "../../utils/apiUtil";
 function Header() {
 
   // Context
+  const { accountRole } = useContext(AccountRoleContext);
   const { language } = useContext(LanguageContext);
 
   // State
-  const [accountRole, setAccountRole] = useState(null);
   const [hamburgerIsClicked, setHamburgerIsClicked] = useState(false);          // 햄버거를 클릭했는가?
   const [email, setEmail] = useState("");                                       // 이메일
   const [nickname, setNickname] = useState("");                                 // 닉네임
@@ -32,28 +32,21 @@ function Header() {
   useEffect(() => {
     
     const getBasicUserInfo = async () => {
+      const basicUserInfo = await sendApi("/api/user/basic-info", "GET", true, {});
 
-      try {
-        const basicUserInfo = await sendApi("/api/user/basic-info", "GET", true, {});
-
-        if (basicUserInfo)
-        {
-          setEmail(basicUserInfo.email);
-          setNickname(basicUserInfo.nickname);
-          setProfileImageUrl(basicUserInfo.profileImageUrl);
-          setAccountRole(basicUserInfo.role);
-          setIsPremium(basicUserInfo.isPremium);
-          setCountUnreadNotification(basicUserInfo.countUnreadNotification);
-        }
-      } catch(e) {
-        setAccountRole(undefined);
+      if (basicUserInfo)
+      {
+        setEmail(basicUserInfo.email);
+        setNickname(basicUserInfo.nickname);
+        setProfileImageUrl(basicUserInfo.profileImageUrl);
+        setIsPremium(basicUserInfo.isPremium);
+        setCountUnreadNotification(basicUserInfo.countUnreadNotification);
       }
-      
     }
     
     getBasicUserInfo();
 
-  }, []);
+  }, [accountRole]);
 
   // 햄버거 클릭 함수
   function clickHamburger() {
