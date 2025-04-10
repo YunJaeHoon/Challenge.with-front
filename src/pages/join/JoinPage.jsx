@@ -329,8 +329,7 @@ function JoinPage() {
             "email": email,
             "password": password,
             "nickname": nickname,
-            "allowEmailMarketing": agreeOrNotEmailMarketingTerm,
-            "code": code
+            "allowEmailMarketing": agreeOrNotEmailMarketingTerm
           }
         );
   
