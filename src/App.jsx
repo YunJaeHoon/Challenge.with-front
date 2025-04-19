@@ -1,16 +1,16 @@
 import { createContext, useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import style from "./AppStyle.module.css"
-import Header from './components/header/Header'
-import Footer from './components/footer/Footer'
-import HomePage from './pages/HomePage'
-import LoginPage from './pages/login/LoginPage.jsx'
+import Header from './domain/header/Header.jsx'
+import Footer from './domain/footer/Footer.jsx'
+import HomePage from './domain/home/HomePage.jsx'
+import LoginPage from './domain/login/LoginPage.jsx'
 import axios from 'axios'
-import OAuth2CallbackPage from './pages/login/OAuth2CallbackPage'
+import OAuth2CallbackPage from './domain/login/OAuth2CallbackPage.jsx'
 import { sendApi } from './utils/apiUtil.js'
-import SelectJoinMethodPage from './pages/join/SelectJoinMethodPage.jsx'
-import JoinPage from './pages/join/JoinPage.jsx'
-import ResetPasswordPage from './pages/reset-password/ResetPasswordPage.jsx'
+import SelectJoinMethodPage from './domain/join/SelectJoinMethodPage.jsx'
+import JoinPage from './domain/join/JoinPage.jsx'
+import ResetPasswordPage from './domain/reset-password/ResetPasswordPage.jsx'
 
 // Context API
 export const LanguageContext = createContext();
