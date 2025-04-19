@@ -1,14 +1,15 @@
-import { useContext, useEffect, useState } from "react";
-import { LanguageContext } from "../../App";
-import { sendApi } from "../../utils/apiUtil";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { LanguageContext } from "../../../App";
+import { sendApi } from "../../../utils/apiUtil";
 import { ScaleLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import style from "./JoinPageStyle.module.css"
-import joinConditionTrueIcon from "../../assets/JoinConditionTrueIcon.svg"
-import joinConditionFalseIcon from "../../assets/JoinConditionFalseIcon.svg"
-import openEyesIcon from "../../assets/OpenEyesIcon.svg"
-import closeEyesIcon from "../../assets/CloseEyesIcon.svg"
+import joinConditionTrueIcon from "../../../assets/JoinConditionTrueIcon.svg"
+import joinConditionFalseIcon from "../../../assets/JoinConditionFalseIcon.svg"
+import openEyesIcon from "../../../assets/OpenEyesIcon.svg"
+import closeEyesIcon from "../../../assets/CloseEyesIcon.svg"
+import useTerm from "../../../hooks/useTerm";
 
 function JoinPage() {
 
@@ -45,15 +46,22 @@ function JoinPage() {
   const [checkPasswordIsVisible, setCheckPasswordIsVisible] = useState(false);    // 비밀번호 확인이 보이는가?
   const [passwordIsEqual, setPasswordIsEqual] = useState(true);                   // 비밀번호와 비밀번호 확인이 동일한가?
 
-  const [agreeOrNotAllTerm, setAgreeOrNotAllTerm] = useState(false);                        // 약관 전체 동의
-  const [agreeOrNotServiceTerm, setAgreeOrNotServiceTerm] = useState(false);                // 서비스 이용약관 동의
-  const [agreeOrNotPrivacyTerm, setAgreeOrNotPrivacyTerm] = useState(false);                // 개인정보 수집 및 이용 동의
-  const [agreeOrNotEmailMarketingTerm, setAgreeOrNotEmailMarketingTerm] = useState(false);  // 이메일 마케팅 수신 동의
-
   const [emailErrorMessage, setEmailErrorMessage] = useState("");                 // 이메일 에러 메시지
   const [joinErrorMessage, setJoinErrorMessage] = useState("");                   // 회원가입 에러 메시지
 
   const [joining, setJoining] = useState(false);                                  // 회원가입을 기다리고 있는가?
+
+  // 약관 동의 관련 State
+  const {
+    agreeOrNotAllTerm,
+    agreeOrNotServiceTerm,
+    agreeOrNotPrivacyTerm,
+    agreeOrNotEmailMarketingTerm,
+    toggleAllTerms,
+    toggleServiceTerm,
+    togglePrivacyTerm,
+    toggleEmailMarketingTerm
+  } = useTerm();
 
   // 서비스 이용약관 및 개인정보처리방침 불러오기
   useEffect(() => {
@@ -72,21 +80,16 @@ function JoinPage() {
   function changeCode(e) { setCode(e.target.value); }
 
   // 이메일 타이핑
-  function changeEmail(e) {
-    setEmail(e.target.value);
+  const changeEmail = useCallback((e) => {
+    const value = e.target.value;
+    setEmail(value);
     setSentCode(false);
-    setCheckingCode(false);
-    setCheckedCode(false);
-    
-    if(emailRegex.test(e.target.value))
-      setValidEmailFormat(true);
-    else
-      setValidEmailFormat(false);
-  }
+    setValidEmailFormat(emailRegex.test(value));
+  }, []);
 
   // 비밀번호 타이핑
   function changePassword(e) {
-    const inputText = e.target.value;
+    const inputText = e.target.value.trim();
 
     setPassword(inputText);
 
@@ -108,7 +111,7 @@ function JoinPage() {
 
   // 비밀번호 확인 타이핑
   function changeCheckPassword(e) {
-    const inputText = e.target.value;
+    const inputText = e.target.value.trim();
 
     setCheckPassword(inputText);
 
@@ -120,7 +123,7 @@ function JoinPage() {
 
   // 닉네임 타이핑
   function changeNickname(e) {
-    const inputText = e.target.value;
+    const inputText = e.target.value.trim();
 
     setNickname(inputText);
 
@@ -145,70 +148,11 @@ function JoinPage() {
     setCheckPasswordIsVisible(!checkPasswordIsVisible);
   }
 
-  // 약관 전체 동의
-  function agreeAllTerm() {
-    const value = agreeOrNotAllTerm;
-
-    if(value)
-    {
-      setAgreeOrNotAllTerm(false);
-      setAgreeOrNotServiceTerm(false);
-      setAgreeOrNotPrivacyTerm(false);
-      setAgreeOrNotEmailMarketingTerm(false);
-    }
-    else
-    {
-      setAgreeOrNotAllTerm(true);
-      setAgreeOrNotServiceTerm(true);
-      setAgreeOrNotPrivacyTerm(true);
-      setAgreeOrNotEmailMarketingTerm(true);
-    }
-  }
-
-  // 서비스 이용약관 동의
-  function agreeServiceTerm() {
-    const value = agreeOrNotServiceTerm;
-
-    setAgreeOrNotServiceTerm(!value);
-
-    if(!value && agreeOrNotPrivacyTerm && agreeOrNotEmailMarketingTerm)
-      setAgreeOrNotAllTerm(true);
-    else
-      setAgreeOrNotAllTerm(false);
-  }
-
-  // 개인정보 수집 및 이용 동의
-  function agreePrivacyTerm() {
-    const value = agreeOrNotPrivacyTerm;
-
-    setAgreeOrNotPrivacyTerm(!value);
-
-    if(agreeOrNotServiceTerm && !value && agreeOrNotEmailMarketingTerm)
-      setAgreeOrNotAllTerm(true);
-    else
-      setAgreeOrNotAllTerm(false);
-  }
-
-  // 이메일 마케팅 수신 동의
-  function agreeEmailMarketingTerm() {
-    const value = agreeOrNotEmailMarketingTerm;
-
-    setAgreeOrNotEmailMarketingTerm(!value);
-
-    if(agreeOrNotServiceTerm && agreeOrNotPrivacyTerm && !value)
-      setAgreeOrNotAllTerm(true);
-    else
-      setAgreeOrNotAllTerm(false);
-  }
-
   // 인증번호 전송
   async function sendCode(e) {
     e.preventDefault();
 
     setSendingCode(true);
-    setSentCode(false);
-    setCheckingCode(false);
-    setCheckedCode(false);
     setEmailErrorMessage("");
     setCode("");
 
@@ -244,7 +188,6 @@ function JoinPage() {
     e.preventDefault();
 
     setCheckingCode(true);
-    setCheckedCode(false);
     setEmailErrorMessage("");
 
     try {
@@ -418,7 +361,7 @@ function JoinPage() {
                 value={code}
                 onChange={changeCode}
                 placeholder={language == "KOREAN" ? "인증번호" : "Verification code"}
-                disabled={!sentCode || sendingCode || checkingCode || checkedCode ? true : false}
+                disabled={checkingCode || checkedCode ? true : false}
                 required
               />
               <button
@@ -430,7 +373,7 @@ function JoinPage() {
                 }
                 type="button"
                 onClick={checkCode}
-                disabled={!sentCode || sendingCode || checkingCode || checkedCode ? true : false}
+                disabled={sendingCode || checkingCode || checkedCode ? true : false}
               >
                 {
                   checkedCode ? "확인 완료" :
@@ -544,7 +487,7 @@ function JoinPage() {
                 ${style["term-agree-checkbox"]}
                 ${agreeOrNotAllTerm ? style["term-agree-checkbox-checked"] : style["term-agree-checkbox-unchecked"]}
               `}
-              onClick={agreeAllTerm}
+              onClick={toggleAllTerms}
             ></div>
           </div>
           <div className={style["term-container"]}>
@@ -557,7 +500,7 @@ function JoinPage() {
                     ${style["term-agree-checkbox"]}
                     ${agreeOrNotServiceTerm ? style["term-agree-checkbox-checked"] : style["term-agree-checkbox-unchecked"]}
                   `}
-                  onClick={agreeServiceTerm}
+                  onClick={toggleServiceTerm}
                 ></div>
               </div>
             </div>
@@ -586,7 +529,7 @@ function JoinPage() {
                     ${style["term-agree-checkbox"]}
                     ${agreeOrNotPrivacyTerm ? style["term-agree-checkbox-checked"] : style["term-agree-checkbox-unchecked"]}
                   `}
-                  onClick={agreePrivacyTerm}
+                  onClick={togglePrivacyTerm}
                 ></div>
               </div>
             </div>
@@ -615,7 +558,7 @@ function JoinPage() {
                     ${style["term-agree-checkbox"]}
                     ${agreeOrNotEmailMarketingTerm ? style["term-agree-checkbox-checked"] : style["term-agree-checkbox-unchecked"]}
                   `}
-                  onClick={agreeEmailMarketingTerm}
+                  onClick={toggleEmailMarketingTerm}
                 ></div>
               </div>
             </div>

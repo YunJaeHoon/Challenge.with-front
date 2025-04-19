@@ -217,6 +217,7 @@
 .term-agree-checkbox {
   width: 15px;
   height: 15px;
+  cursor: pointer;
 
   border: 2px solid black;
   border-radius: 100%;

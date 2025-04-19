@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { LanguageContext } from "../../App";
+import { LanguageContext } from "../../../App";
 import style from "./SelectJoinMethodPageStyle.module.css"
-import logoImage from "../../assets/LogoImage.svg"
-import googleIcon from "../../assets/GoogleIcon.svg"
-import kakaoIcon from "../../assets/KakaoIcon.svg"
-import naverIcon from "../../assets/NaverIcon.svg"
+import logoImage from "../../../assets/LogoImage.svg"
+import googleIcon from "../../../assets/GoogleIcon.svg"
+import kakaoIcon from "../../../assets/KakaoIcon.svg"
+import naverIcon from "../../../assets/NaverIcon.svg"
 
 function SelectJoinMethodPage() {
 

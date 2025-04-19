@@ -8,8 +8,8 @@ import LoginPage from './domain/login/LoginPage.jsx'
 import axios from 'axios'
 import OAuth2CallbackPage from './domain/login/OAuth2CallbackPage.jsx'
 import { sendApi } from './utils/apiUtil.js'
-import SelectJoinMethodPage from './domain/join/SelectJoinMethodPage.jsx'
-import JoinPage from './domain/join/JoinPage.jsx'
+import SelectJoinMethodPage from './domain/join/pages/SelectJoinMethodPage.jsx'
+import JoinPage from './domain/join/pages/JoinPage.jsx'
 import ResetPasswordPage from './domain/reset-password/ResetPasswordPage.jsx'
 
 // Context API
