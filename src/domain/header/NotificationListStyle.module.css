@@ -83,10 +83,27 @@
   margin-top: 30px;
 }
 
+#empty-notification-description {
+  font-size: 1rem;
+  font-weight: 550;
+  color: black;
+
+  margin-top: 25px;
+}
+
 #loading-notification-description {
   font-size: 1rem;
   font-weight: 550;
   color: black;
 
   margin: 10px 0 25px;
+}
+
+#next-page-button {
+  width: 30px;
+
+  cursor: pointer;
+
+  border-radius: 50%;
+  margin: 20px 0 30px;
 }
