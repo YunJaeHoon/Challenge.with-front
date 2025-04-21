@@ -1,0 +1,92 @@
+#main-container {
+  position: fixed;
+  display: flex;
+  justify-content: end;
+
+  right: 10px;
+  margin-top: 10px;
+}
+
+#list-container {
+  width: 400px;
+  height: 300px;
+  overflow: auto;
+  background-color: #FFFFFF;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-size: 0.95rem;
+
+  border: 1px solid #20201E;
+}
+
+#list-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+#list-container::-webkit-scrollbar-thumb {
+  background-color: #20201E;
+}
+
+#list-container::-webkit-scrollbar-track {
+  background-color: rgb(156, 156, 156);
+}
+
+.list-element {
+  width: 90%;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  margin: 15px 0;
+}
+
+.notification-title {
+  font-size: 1.4rem;
+  font-weight: 650;
+  color: black;
+
+  white-space: normal;
+  word-break: break-word;
+}
+
+.notification-content {
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: black;
+
+  margin-top: 8px;
+
+  white-space: normal;
+  word-break: break-word;
+}
+
+.notification-date {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgb(118, 118, 118);
+
+  margin-top: 12px;
+}
+
+.notification-line {
+  align-self: center;
+
+  width: 50%;
+  height: 1.5px;
+  background-color: rgb(118, 118, 118);
+
+  margin-top: 30px;
+}
+
+#loading-notification-description {
+  font-size: 1rem;
+  font-weight: 550;
+  color: black;
+
+  margin: 10px 0 25px;
+}

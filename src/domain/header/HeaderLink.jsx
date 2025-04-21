@@ -1,17 +1,12 @@
 import { Link } from "react-router-dom";
 
 import style from "./HeaderLinkStyle.module.css"
-import { useContext } from "react";
-import { LanguageContext } from "../../App";
+import React from "react";
 
-function HeaderLink(props) {
-
-  // Context
-  const { language } = useContext(LanguageContext);
-
+const HeaderLink = React.memo(({ link, name }) => {
   return (
-    <Link id={style["link"]} to={props.link}>{props.name}</Link>
+    <Link className={style["link"]} to={link}>{name}</Link>
   );
-}
+});
 
 export default HeaderLink

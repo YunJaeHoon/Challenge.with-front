@@ -12,9 +12,7 @@ axios.defaults.baseURL = import.meta.env.VITE_BACKEND_SERVER_URL;
 axios.defaults.withCredentials = true;
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 )

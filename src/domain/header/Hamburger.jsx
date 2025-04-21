@@ -1,14 +1,13 @@
 import style from "./HamburgerStyle.module.css"
 import hamburgerIcon from "../../assets/HamburgerIcon.svg"
-import { LanguageContext } from "../../App";
-import { useContext, useState } from "react";
+import React from "react";
 
-function Hamburger(props) {
+const Hamburger = React.memo(({ clickHamburgerFunction }) => {
   return (
-    <button id={style["hamburger-container"]} onClick={props.clickHamburgerFunction}>
+    <button id={style["hamburger-container"]} onClick={clickHamburgerFunction}>
       <img src={hamburgerIcon} id={style["hamburger-icon"]}/>
     </button>
   );
-}
+});
 
 export default Hamburger

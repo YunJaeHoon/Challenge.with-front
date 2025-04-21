@@ -1,4 +1,4 @@
-#link {
+.link {
   position: relative;
   z-index: 10;
   
@@ -9,7 +9,7 @@
   color: black;
 }
 
-#link::after {
+.link::after {
   width: 160%;
   height: 160%;
   z-index: -1;
@@ -25,12 +25,12 @@
   border-radius: 100px;
 }
 
-#link:hover::after {
+.link:hover::after {
   background-color: #DFDFDF;
 }
 
 @media screen and (max-width: 800px) {
-  #link {
+  .link {
     display: none;
   }
 }

@@ -1,16 +1,11 @@
-import { useContext } from "react";
+import React from "react";
 import style from "./HamburgerLinkStyle.module.css"
 import { Link } from "react-router-dom";
-import { LanguageContext } from "../../App";
 
-function HamburgerLink(props) {
-
-  // Context
-  const { language } = useContext(LanguageContext);
-
+const HamburgerLink = React.memo(({ link, name }) => {
   return (
-    <Link id={style["link"]} to={props.link}>{props.name}</Link>
+    <Link className={style["link"]} to={link}>{name}</Link>
   );
-}
+});
 
 export default HamburgerLink
