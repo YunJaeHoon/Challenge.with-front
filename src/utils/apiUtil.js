@@ -23,6 +23,12 @@ export const sendApi = async (url, method, needAuthority, data) => {
         headers: headers
       });
     }
+    else if(method === "DELETE") {
+      response = await axios.delete(url, {
+        headers: headers,
+        params: data
+      });
+    }
 
     return response.data?.data;
   } catch(error) {

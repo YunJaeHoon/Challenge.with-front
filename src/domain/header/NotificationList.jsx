@@ -3,8 +3,12 @@ import style from "./NotificationListStyle.module.css"
 import { sendApi } from "../../utils/apiUtil";
 
 import nextPageIcon from "../../assets/NextNotificationPageIcon.svg"
+import deleteIcon from "../../assets/DeleteNotificationIcon.svg"
 
-const NotificationList = React.memo(() => {
+const NotificationList = React.memo(({ decreaseCountUnreadNotification }) => {
+
+  // 새롭게 읽은 알림 개수
+  const countNewlyRead = useRef(0);
 
   // State
   const [notificationList, setNotificationList] = useState([]);   // 알림 리스트
@@ -12,7 +16,13 @@ const NotificationList = React.memo(() => {
   const [hasMorePage, setHasMorePage] = useState(true);           // 더 불러올 알림이 있는가?
   const [isFetching, setIsFetching] = useState(false);            // 알림을 불러오는 중인가?
   const [isEmpty, setIsEmpty] = useState(false);                  // 알림이 존재하지 않는가?
-  const observerRef = useRef(null);                               // IntersectionObserver를 위한 ref
+
+  // 언마운트 시, 읽지 않은 알림 개수 갱신
+  useEffect(() => {
+    return () => {
+      decreaseCountUnreadNotification(countNewlyRead.current);
+    };
+  }, []);
 
   // 알림 리스트 불러오기
   useEffect(() => {
@@ -22,11 +32,15 @@ const NotificationList = React.memo(() => {
       try {
         const data = await sendApi("/api/notification", "GET", true, {
           page: page,
-          size: 1,
+          size: 10,
           sort: "createdAt,desc"
         });
     
         if (data.content) {
+          data.content.forEach(n => {
+            if (!n.isRead) countNewlyRead.current++;
+          });
+
           setNotificationList((prev) => [...prev, ...data.content]);
           setHasMorePage(!data.isLast);
         }
@@ -51,15 +65,43 @@ const NotificationList = React.memo(() => {
     }
   }
 
+  // 알림 삭제 함수
+  const deleteNotification = async (notificationId) => {
+    const confirmRes = window.confirm("정말 알림을 삭제하시겠습니까?");
+  
+    if(confirmRes) {
+      await sendApi(`/api/notification/${notificationId}`, "DELETE", true);
+  
+      setNotificationList((prev) => {
+        const updatedList = prev.filter((notification) => notification.notificationId !== notificationId);
+  
+        if (updatedList.length === 0) {
+          setIsEmpty(true);
+        }
+  
+        return updatedList;
+      });
+    }
+  };
+
   return (
     <div id={style["main-container"]}>
-      <div ref={observerRef} id={style["list-container"]}>
+      <div id={style["list-container"]}>
 
         {/* 알림 리스트 */}
         {notificationList.map((notification, index) => 
           <div key={notification.notificationId} className={style["list-element"]}>
 
-            <div className={style["notification-title"]}>{notification.title}</div>
+            <div className={style["notification-title-container"]}>
+              <div className={style["notification-title-left-subcontainer"]}>
+                {!notification.isRead && <div className={style["new-notification-mark"]}></div>}
+                <div className={style["notification-title"]}>{notification.title}</div>
+              </div>
+              <div className={style["notification-title-right-subcontainer"]}>
+                <img src={deleteIcon} className={style["delete-button"]} title="알림 삭제" onClick={() => deleteNotification(notification.notificationId)} />
+              </div>
+            </div>
+            
             <div className={style["notification-content"]}>{notification.content}</div>
             <div className={style["notification-date"]}>
               {new Date(notification.createdAt).toLocaleString()}

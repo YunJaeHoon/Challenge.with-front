@@ -60,6 +60,12 @@ function Header() {
     setNotificationIsClicked(!notificationIsClicked);
   }
 
+  // 읽지 않은 알림 개수 감소 콜백 함수
+  function decreaseCountUnreadNotification(value) {
+    setCountUnreadNotification(countUnreadNotification - value);
+    console.log(value);
+  }
+
   return (
     <div id={style["header-container"]}>
       <div id={style["main-container"]}>
@@ -121,7 +127,7 @@ function Header() {
       {/* 알림 리스트 */}
       {
         notificationIsClicked ?
-        <NotificationList /> :
+        <NotificationList decreaseCountUnreadNotification={decreaseCountUnreadNotification} /> :
         ""
       }
       

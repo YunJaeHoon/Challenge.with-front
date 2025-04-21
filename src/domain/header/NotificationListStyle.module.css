@@ -44,6 +44,42 @@
   margin: 15px 0;
 }
 
+.notification-title-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.notification-title-left-subcontainer {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.notification-title-right-subcontainer {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.delete-button {
+  width: 20px;
+  cursor: pointer;
+
+  margin-top: 3px;
+  margin-left: 10px;
+}
+
+.new-notification-mark {
+  min-width: 15px;
+  min-height: 15px;
+  background-color: #FF3D00;
+
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
 .notification-title {
   font-size: 1.4rem;
   font-weight: 650;
