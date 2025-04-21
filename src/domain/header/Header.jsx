@@ -53,17 +53,18 @@ function Header() {
   // 햄버거 클릭 함수
   function clickHamburger() {
     setHamburgerIsClicked(!hamburgerIsClicked);
+    setNotificationIsClicked(false);
   }
 
   // 알림 클릭 함수
   function clickNotification() {
     setNotificationIsClicked(!notificationIsClicked);
+    setHamburgerIsClicked(false);
   }
 
   // 읽지 않은 알림 개수 감소 콜백 함수
   function decreaseCountUnreadNotification(value) {
     setCountUnreadNotification(countUnreadNotification - value);
-    console.log(value);
   }
 
   return (

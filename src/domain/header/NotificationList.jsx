@@ -88,6 +88,8 @@ const NotificationList = React.memo(({ decreaseCountUnreadNotification }) => {
     <div id={style["main-container"]}>
       <div id={style["list-container"]}>
 
+        <div id={style["main-title"]}>[ 알림 ]</div>
+
         {/* 알림 리스트 */}
         {notificationList.map((notification, index) => 
           <div key={notification.notificationId} className={style["list-element"]}>
