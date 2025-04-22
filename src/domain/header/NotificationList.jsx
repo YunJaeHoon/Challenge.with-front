@@ -5,10 +5,7 @@ import { sendApi } from "../../utils/apiUtil";
 import nextPageIcon from "../../assets/NextNotificationPageIcon.svg"
 import deleteIcon from "../../assets/DeleteNotificationIcon.svg"
 
-const NotificationList = React.memo(({ decreaseCountUnreadNotification }) => {
-
-  // 새롭게 읽은 알림 개수
-  const countNewlyRead = useRef(0);
+const NotificationList = React.memo(({ isClicked }) => {
 
   // State
   const [notificationList, setNotificationList] = useState([]);   // 알림 리스트
@@ -16,13 +13,6 @@ const NotificationList = React.memo(({ decreaseCountUnreadNotification }) => {
   const [hasMorePage, setHasMorePage] = useState(true);           // 더 불러올 알림이 있는가?
   const [isFetching, setIsFetching] = useState(false);            // 알림을 불러오는 중인가?
   const [isEmpty, setIsEmpty] = useState(false);                  // 알림이 존재하지 않는가?
-
-  // 언마운트 시, 읽지 않은 알림 개수 갱신
-  useEffect(() => {
-    return () => {
-      decreaseCountUnreadNotification(countNewlyRead.current);
-    };
-  }, []);
 
   // 알림 리스트 불러오기
   useEffect(() => {
@@ -37,10 +27,6 @@ const NotificationList = React.memo(({ decreaseCountUnreadNotification }) => {
         });
     
         if (data.content) {
-          data.content.forEach(n => {
-            if (!n.isRead) countNewlyRead.current++;
-          });
-
           setNotificationList((prev) => [...prev, ...data.content]);
           setHasMorePage(!data.isLast);
         }
@@ -85,7 +71,7 @@ const NotificationList = React.memo(({ decreaseCountUnreadNotification }) => {
   };
 
   return (
-    <div id={style["main-container"]}>
+    <div id={style["main-container"]} style={isClicked ? {display: "flex"} : {display: "none"}}>
       <div id={style["list-container"]}>
 
         <div id={style["main-title"]}>[ 알림 ]</div>

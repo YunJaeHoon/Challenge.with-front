@@ -1,6 +1,5 @@
 #main-container {
   position: fixed;
-  display: flex;
   justify-content: end;
 
   right: 10px;

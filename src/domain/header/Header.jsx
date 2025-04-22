@@ -62,11 +62,6 @@ function Header() {
     setHamburgerIsClicked(false);
   }
 
-  // 읽지 않은 알림 개수 감소 콜백 함수
-  function decreaseCountUnreadNotification(value) {
-    setCountUnreadNotification(countUnreadNotification - value);
-  }
-
   return (
     <div id={style["header-container"]}>
       <div id={style["main-container"]}>
@@ -127,11 +122,9 @@ function Header() {
 
       {/* 알림 리스트 */}
       {
-        notificationIsClicked ?
-        <NotificationList decreaseCountUnreadNotification={decreaseCountUnreadNotification} /> :
-        ""
+        (accountRole !== null && accountRole !== undefined) ?
+        <NotificationList isClicked={notificationIsClicked} /> : ""
       }
-      
 
     </div>
   );
