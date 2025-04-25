@@ -16,33 +16,43 @@ const NotificationList = React.memo(({ isClicked }) => {
 
   // 알림 리스트 불러오기
   useEffect(() => {
-    const getNotificationList = async () => {
-      setIsFetching(true);
-    
-      try {
-        const data = await sendApi("/api/notification", "GET", true, {
-          page: page,
-          size: 10,
-          sort: "createdAt,desc"
-        });
-    
-        if (data.content) {
-          setNotificationList((prev) => [...prev, ...data.content]);
-          setHasMorePage(!data.isLast);
+
+    if(isClicked)
+    {
+      const getNotificationList = async () => {
+        setIsFetching(true);
+      
+        try {
+          const data = await sendApi("/api/notification", "GET", true, {
+            page: page,
+            size: 10,
+            sort: "createdAt,desc"
+          });
+      
+          if (data.content) {
+            setNotificationList((prev) => [...prev, ...data.content]);
+            setHasMorePage(!data.isLast);
+          }
+        } catch(error) {
+          const errorCode = error.response.data.code;
+  
+          if(page === 0 && errorCode === "NOTIFICATION_NOT_FOUND")
+            setIsEmpty(true);
+          setHasMorePage(false);
+        } finally {
+          setIsFetching(false);
         }
-      } catch(error) {
-        const errorCode = error.response.data.code;
-
-        if(page === 0 && errorCode === "NOTIFICATION_NOT_FOUND")
-          setIsEmpty(true);
-        setHasMorePage(false);
-      } finally {
-        setIsFetching(false);
       }
+  
+      getNotificationList();
     }
-
-    getNotificationList();
-  }, [page])
+    else
+    {
+      setNotificationList([]);
+      setPage(0);
+    }
+    
+  }, [page, isClicked])
 
   // 다음 페이지 불러오기 함수
   const getNextNotificationList = () => {
