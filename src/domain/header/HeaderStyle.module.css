@@ -1,0 +1,165 @@
+#header-container {
+  position: relative;
+}
+
+#main-container {
+  display: flex;
+  justify-content: space-between;
+
+  position: relative;
+  z-index: 5;
+
+  padding: 12px 0px;
+  box-shadow: 0px 1px 1px rgb(58, 58, 58);
+}
+
+#left-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+#right-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+#loading-right-container {
+  width: 130px;
+  height: 40px;
+
+  background-color: #e8e8e8;
+
+  border-radius: 10px;
+  margin-right: 15px;
+}
+
+#logo {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  text-decoration: none;
+  color: black;
+
+  margin-left: 20px;
+  margin-right: 40px;
+}
+
+#logo-image {
+  width: 40px;
+
+  margin-right: 10px;
+}
+
+#logo-text {
+  width: 180px;
+}
+
+#notification-icon {
+  width: 25px;
+  cursor: pointer;
+
+  margin-right: 30px;
+}
+
+#profile-icon {
+  width: 50px;
+
+  border: 1px solid black;
+  border-radius: 100%;
+  margin-right: 20px;
+}
+
+#login-button {
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-right: 25px;
+}
+
+#login-icon {
+  width: 30px;
+
+  transition: width 0.1s ease-in-out;
+}
+
+#login-icon:hover {
+  width: 35px;
+}
+
+#hamburger-list-container {
+  width: 100%;
+  height: calc(100vh - 64px);
+  overflow: hidden;
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+
+  background-color: #fffaf0;;
+
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.2s ease-in-out;
+}
+
+#hamburger-list-container.active {
+  clip-path: inset(0 0 0 0);
+}
+
+#hamburger-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.header-link {
+  margin-right: 40px;
+}
+
+.hamburger-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 30px 0;
+}
+
+@media screen and (min-width: 801px) {
+  #hamburger-list-container {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #logo {
+    margin-right: 0;
+  }
+
+  #login-button {
+    height: 0;
+  }
+
+  #login-icon {
+    display: none;
+  }
+  
+  #profile-icon {
+    display: none;
+    margin-right: 0;
+  }
+
+  .header-link {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #logo-text {
+    display: none;
+  }
+}

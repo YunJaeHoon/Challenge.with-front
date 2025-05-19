@@ -1,0 +1,36 @@
+.link {
+  position: relative;
+  z-index: 10;
+  
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: none;
+
+  color: black;
+}
+
+.link::after {
+  width: 160%;
+  height: 160%;
+  z-index: -1;
+  content: "";
+
+  position: absolute;
+  left: -30%;
+  bottom: -30%;
+  
+  background-color: white;
+  transition: background-color 0.3s ease;
+
+  border-radius: 100px;
+}
+
+.link:hover::after {
+  background-color: #DFDFDF;
+}
+
+@media screen and (max-width: 800px) {
+  .link {
+    display: none;
+  }
+}
