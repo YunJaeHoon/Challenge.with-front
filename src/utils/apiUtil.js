@@ -23,6 +23,11 @@ export const sendApi = async (url, method, needAuthority, data) => {
         headers: headers
       });
     }
+    else if(method === "PATCH") {
+      response = await axios.patch(url, data, {
+        headers: headers
+      });
+    }
     else if(method === "DELETE") {
       response = await axios.delete(url, {
         headers: headers,

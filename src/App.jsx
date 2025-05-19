@@ -11,6 +11,7 @@ import { sendApi } from './utils/apiUtil.js'
 import SelectJoinMethodPage from './domain/join/pages/SelectJoinMethodPage.jsx'
 import JoinPage from './domain/join/pages/JoinPage.jsx'
 import ResetPasswordPage from './domain/reset-password/ResetPasswordPage.jsx'
+import MyChallengePage from './domain/my-challenge/pages/MyChallengePage.jsx'
 
 // Context API
 export const LanguageContext = createContext();
@@ -68,6 +69,7 @@ function App() {
             <Route path="/join/method" element={<SelectJoinMethodPage />} />
             <Route path="/join" element={<JoinPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="/my-challenge" element={<MyChallengePage />} />
           </Routes>
         </div>
 
