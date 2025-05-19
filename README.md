@@ -1,5 +1,5 @@
 # Challenge.with
-
+![Challenge with 이미지](https://github.com/user-attachments/assets/243d4519-3c26-4e6d-9e5e-e236d6dcdc48)
 > **프론트엔드 GitHub** : https://github.com/YunJaeHoon/Challenge.with-front
 > 
 > **백엔드 GitHub** : https://github.com/YunJaeHoon/Challenge.with-back
@@ -13,6 +13,10 @@
 - 기획 & 디자인 & 프론트엔드 개발 & 백엔드 개발 등 모든 작업을 혼자서 수행 중입니다.
 - 혼자서 또는 친구들과 함께 챌린지를 진행하고 참여 정보를 확인할 수 있는 서비스입니다.
 - 현재 진행 중인 프로젝트입니다.
+
+<br/>
+
+![챌린지-페이즈 관계도](https://github.com/user-attachments/assets/7c1014c8-212d-4467-a513-a3be46b333af)
 
 <br/>
 
