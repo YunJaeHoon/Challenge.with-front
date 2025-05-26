@@ -48,7 +48,7 @@ function Header() {
     
     getBasicUserInfo();
 
-  }, [accountRole]);
+  }, []);
 
   // 햄버거 클릭 함수
   function clickHamburger() {
@@ -113,9 +113,9 @@ function Header() {
       <div id={style["hamburger-list-container"]} className={hamburgerIsClicked ? style["active"] : ""}>
         <div id={style["hamburger-list"]}>
           
-          <div className={style["hamburger-link"]}><HamburgerLink link="/my-challenge" name="나의 도전" /></div>
-          <div className={style["hamburger-link"]}><HamburgerLink link="/challenges" name="챌린지" /></div>
-          <div className={style["hamburger-link"]}><HamburgerLink link="/purchase-plan" name="요금제" /></div>
+          <div><HamburgerLink link="/my-challenge" name="나의 도전" /></div>
+          <div><HamburgerLink link="/challenges" name="챌린지" /></div>
+          <div><HamburgerLink link="/purchase-plan" name="요금제" /></div>
 
         </div>
       </div>

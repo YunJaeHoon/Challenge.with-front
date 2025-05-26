@@ -2,8 +2,7 @@
   position: fixed;
   justify-content: end;
 
-  right: 10px;
-  margin-top: 10px;
+  right: 20px;
 }
 
 #list-container {
@@ -18,7 +17,8 @@
 
   font-size: 0.95rem;
 
-  border: 1px solid #20201E;
+  border: 1.5px solid rgb(177, 177, 177);
+  border-radius: 8px;
 }
 
 #list-container::-webkit-scrollbar {

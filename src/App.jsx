@@ -55,7 +55,7 @@ function App() {
   const getAccountRole = async () => {
     try {
       const accountRoleDto = await sendApi("/api/user/role", "GET", true, {});
-      setAccountRole(accountRoleDto.role);
+      setAccountRole(accountRoleDto);
     } catch (e) {
       setAccountRole(undefined);
     }
