@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { BarLoader, ScaleLoader } from "react-spinners";
 import axios from "axios";
 import style from "./OAuth2CallbackPageStyle.module.css"
+import { getCookie } from "../../utils/cookieUtil";
 
 function OAuth2CallbackPage() {
 
@@ -11,7 +12,7 @@ function OAuth2CallbackPage() {
   useEffect(() => {
     const accessToken = getCookie("accessToken");
 
-    if (accessToken)
+    if(accessToken)
     {
       axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
       window.localStorage.setItem("accessToken", accessToken);
@@ -21,22 +22,6 @@ function OAuth2CallbackPage() {
       navigate("/login", { state: { errorMessage: "예기치 못한 에러가 발생하였습니다." } });
     }
   }, [navigate]);
-
-  function getCookie(name) {
-    const cookies = document.cookie.split(";");
-
-    for(let i = 0; i < cookies.length; i++)
-    {
-      const cookie = cookies[i].trim();
-
-      if(cookie.startsWith(name + "="))
-      {
-        return cookie.substring(name.length + 1);
-      }
-    }
-
-    return undefined;
-  }
 
   return (
     <div id={style["container"]}>

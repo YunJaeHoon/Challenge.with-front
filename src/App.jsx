@@ -12,6 +12,7 @@ import SelectJoinMethodPage from './domain/join/pages/SelectJoinMethodPage.jsx'
 import JoinPage from './domain/join/pages/JoinPage.jsx'
 import ResetPasswordPage from './domain/reset-password/ResetPasswordPage.jsx'
 import MyChallengePage from './domain/my-challenge/pages/MyChallengePage.jsx'
+import { getCookie } from './utils/cookieUtil.js'
 
 // Context API
 export const LanguageContext = createContext();
@@ -26,33 +27,39 @@ function App() {
   // Access token 재발급 및 계정 권한 확인
   useEffect(() => {
 
-    const getAccountRole = async () => {
-      try {
-
-        const accessTokenDto = await sendApi("/api/reissue-access-token", "POST", false, {});
-
-        if (accessTokenDto) {
-          const accessToken = accessTokenDto.accessToken;
-  
-          axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
-          window.localStorage.setItem("accessToken", accessToken);
-        }
-
-      } finally {
-
-        try {
-          const accountRoleDto = await sendApi("/api/user/role", "GET", true, {});
-          setAccountRole(accountRoleDto.role);
-        } catch (e) {
-          setAccountRole(undefined);
-        }
-        
-      }
+    const initializeAccount = async () => {
+      await reissueAccessToken();
+      await getAccountRole();
     };
   
-    getAccountRole();
+    initializeAccount();
+  }, []);
 
-  }, []);  
+  // Access token 재발급 함수
+  const reissueAccessToken = async () => {
+    try {
+      await sendApi("/api/reissue-access-token", "POST", false, {});
+      const accessToken = getCookie("accessToken");
+
+      if(accessToken)
+      {
+        axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
+        window.localStorage.setItem("accessToken", accessToken);
+      }
+    } catch (e) {
+      console.error("Access token 재발급 실패:", e);
+    }
+  };
+
+  // 계정 권한 확인 함수
+  const getAccountRole = async () => {
+    try {
+      const accountRoleDto = await sendApi("/api/user/role", "GET", true, {});
+      setAccountRole(accountRoleDto.role);
+    } catch (e) {
+      setAccountRole(undefined);
+    }
+  };
 
   return (
     <div id={style["container"]}>
