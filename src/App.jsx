@@ -13,16 +13,17 @@ import JoinPage from './domain/join/pages/JoinPage.jsx'
 import ResetPasswordPage from './domain/reset-password/ResetPasswordPage.jsx'
 import MyChallengePage from './domain/my-challenge/pages/MyChallengePage.jsx'
 import { getCookie } from './utils/cookieUtil.js'
+import MyProfilePage from './domain/my-profile/MyProfilePage.jsx'
 
 // Context API
 export const LanguageContext = createContext();
-export const AccountRoleContext = createContext();
+export const AccountBasicInfoContext = createContext();
 
 function App() {
 
   // Context
   const [language, setLanguage] = useState("KOREAN");
-  const [accountRole, setAccountRole] = useState(null);
+  const [accountBasicInfo, setAccountBasicInfo] = useState(null);
 
   // Access token 재발급 및 계정 권한 확인
   useEffect(() => {
@@ -51,20 +52,20 @@ function App() {
     }
   };
 
-  // 계정 권한 확인 함수
+  // 사용자 기본 정보 조회 함수
   const getAccountRole = async () => {
     try {
-      const accountRoleDto = await sendApi("/api/user/role", "GET", true, {});
-      setAccountRole(accountRoleDto);
+      const accountBasicInfoDto = await sendApi("/api/user/basic-info", "GET", true, {});
+      setAccountBasicInfo(accountBasicInfoDto);
     } catch (e) {
-      setAccountRole(undefined);
+      setAccountBasicInfo(undefined);
     }
   };
 
   return (
     <div id={style["container"]}>
       <LanguageContext.Provider value={{ language, setLanguage }}>
-      <AccountRoleContext.Provider value={{ accountRole, setAccountRole }}>
+      <AccountBasicInfoContext.Provider value={{ accountBasicInfo, setAccountBasicInfo }}>
 
         <Header isLogin={true} />
         
@@ -77,12 +78,13 @@ function App() {
             <Route path="/join" element={<JoinPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/my-challenge" element={<MyChallengePage />} />
+            <Route path="/my-profile" element={<MyProfilePage />} />
           </Routes>
         </div>
 
         <Footer />
 
-      </AccountRoleContext.Provider>
+      </AccountBasicInfoContext.Provider>
       </LanguageContext.Provider>
     </div>
   )

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { AccountRoleContext, LanguageContext } from "../../App";
+import { AccountBasicInfoContext, LanguageContext } from "../../App";
 import { Link } from "react-router-dom";
 
 import style from "./HeaderStyle.module.css"
@@ -17,38 +17,12 @@ import NotificationList from "./NotificationList";
 function Header() {
 
   // Context
-  const { accountRole } = useContext(AccountRoleContext);
+  const { accountBasicInfo } = useContext(AccountBasicInfoContext);
   const { language } = useContext(LanguageContext);
 
   // State
   const [hamburgerIsClicked, setHamburgerIsClicked] = useState(false);          // 햄버거를 클릭했는가?
   const [notificationIsClicked, setNotificationIsClicked] = useState(false);    // 알림을 클릭했는가?
-
-  const [email, setEmail] = useState("");                                       // 이메일
-  const [nickname, setNickname] = useState("");                                 // 닉네임
-  const [profileImageUrl, setProfileImageUrl] = useState("");                   // 프로필 이미지 URL
-  const [isPremium, setIsPremium] = useState(false);                            // 프리미엄인가?
-  const [countUnreadNotification, setCountUnreadNotification] = useState(0);    // 읽지 않은 알림 개수
-
-  // 사용자 기본 정보 가져오기
-  useEffect(() => {
-    
-    const getBasicUserInfo = async () => {
-      const basicUserInfo = await sendApi("/api/user/basic-info", "GET", true, {});
-
-      if(basicUserInfo)
-      {
-        setEmail(basicUserInfo.email);
-        setNickname(basicUserInfo.nickname);
-        setProfileImageUrl(basicUserInfo.profileImageUrl);
-        setIsPremium(basicUserInfo.isPremium);
-        setCountUnreadNotification(basicUserInfo.countUnreadNotification);
-      }
-    }
-    
-    getBasicUserInfo();
-
-  }, []);
 
   // 햄버거 클릭 함수
   function clickHamburger() {
@@ -81,13 +55,13 @@ function Header() {
 
         {/* 헤더 오른쪽 컨테이너 */}
         {
-          accountRole === null ? (
+          accountBasicInfo === null ? (
 
             <div id={style["right-container"]}>
               <div id={style["loading-right-container"]}></div>
             </div>
 
-          ) : accountRole === undefined ? (
+          ) : accountBasicInfo === undefined ? (
 
             <div id={style["right-container"]}>
               <Link id={style["login-button"]} to="/login">
@@ -99,8 +73,10 @@ function Header() {
           ) : (
 
             <div id={style["right-container"]}>
-              <img id={style["notification-icon"]} src={countUnreadNotification > 0 ? notificationIcon_Unread : notificationIcon_Read} onClick={clickNotification} />
-              <img src={profileImageUrl} id={style["profile-icon"]} />
+              <img id={style["notification-icon"]} src={accountBasicInfo.countUnreadNotification > 0 ? notificationIcon_Unread : notificationIcon_Read} onClick={clickNotification} />
+              <Link to="/my-profile">
+                <img src={accountBasicInfo.profileImageUrl} id={style["profile-icon"]} />
+              </Link>
               <Hamburger clickHamburgerFunction={clickHamburger} />
             </div>
 
@@ -112,17 +88,28 @@ function Header() {
       {/* 햄버거 메뉴 */}
       <div id={style["hamburger-list-container"]} className={hamburgerIsClicked ? style["active"] : ""}>
         <div id={style["hamburger-list"]}>
+
+          {
+            accountBasicInfo === null || accountBasicInfo === undefined ? (
+              <div id={style["hamburger-button-container"]}>
+                <Link id={style["hamburger-join-button"]} className={style["hamburger-button"]} to="/join/method" onClick={() => {setHamburgerIsClicked(false);}}>회원가입</Link>
+                <Link id={style["hamburger-login-button"]} className={style["hamburger-button"]} to="/login" onClick={() => {setHamburgerIsClicked(false);}}>로그인</Link>
+              </div>
+            ) : (
+              <div><HamburgerLink link="/my-profile" name="프로필" setHamburgerIsClicked={setHamburgerIsClicked} /></div>
+            )
+          }
           
-          <div><HamburgerLink link="/my-challenge" name="나의 도전" /></div>
-          <div><HamburgerLink link="/challenges" name="챌린지" /></div>
-          <div><HamburgerLink link="/purchase-plan" name="요금제" /></div>
+          <div><HamburgerLink link="/my-challenge" name="나의 도전" setHamburgerIsClicked={setHamburgerIsClicked} /></div>
+          <div><HamburgerLink link="/challenges" name="챌린지" setHamburgerIsClicked={setHamburgerIsClicked} /></div>
+          <div><HamburgerLink link="/purchase-plan" name="요금제" setHamburgerIsClicked={setHamburgerIsClicked} /></div>
 
         </div>
       </div>
 
       {/* 알림 리스트 */}
       {
-        (accountRole !== null && accountRole !== undefined) ?
+        (accountBasicInfo !== null && accountBasicInfo !== undefined) ?
         <NotificationList isClicked={notificationIsClicked} /> : ""
       }
 

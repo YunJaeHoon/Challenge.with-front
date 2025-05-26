@@ -9,6 +9,8 @@ import naverIcon from "../../../assets/NaverIcon.svg"
 
 function SelectJoinMethodPage() {
 
+  const serverUrl = import.meta.env.VITE_BACKEND_SERVER_URL;
+
   // Context
   const { language } = useContext(LanguageContext);
 

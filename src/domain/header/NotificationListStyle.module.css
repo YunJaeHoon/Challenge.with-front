@@ -1,8 +1,10 @@
 #main-container {
-  position: fixed;
-  justify-content: end;
+  width: 95%;
 
-  right: 20px;
+  justify-content: end;
+  align-items: center;
+
+  margin-top: 20px;
 }
 
 #list-container {

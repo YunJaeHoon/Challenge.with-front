@@ -76,9 +76,16 @@
 #profile-icon {
   width: 50px;
 
-  border: 1px solid black;
+  border: 1.5px solid black;
   border-radius: 100%;
   margin-right: 20px;
+
+  cursor: pointer;
+  transition: filter 0.07s ease-in-out;
+}
+
+#profile-icon:hover {
+  filter: brightness(0.85);
 }
 
 #login-button {
@@ -109,13 +116,19 @@
   flex-direction: column;
   align-items: center;
 
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+
   background-color: #ececec;
 
   clip-path: inset(0 0 100% 0);
   transition: clip-path 0.2s ease-in-out;
 
   border-radius: 8px;
-  padding: 10px 0px;
+  padding: 30px 0px;
   margin-top: 20px;
 }
 
@@ -124,9 +137,56 @@
 }
 
 #hamburger-list {
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center; 
+}
+
+#hamburger-button-container {
+  width: 80%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hamburger-button {
+  width: 47%;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-decoration: none;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: black;
+
+  transition: all 0.05s ease-in-out;
+
+  border: 2px solid #000000;
+  border-radius: 2px;
+
+  margin: 25px 0px;
+}
+
+#hamburger-join-button {
+  background-color: #FFFFFF;
+}
+
+#hamburger-join-button:hover {
+  background-color: #dadada;
+}
+
+#hamburger-login-button {
+  background-color: #ffb444;
+}
+
+#hamburger-login-button:hover {
+  background-color: #ff9900;
 }
 
 .header-link {

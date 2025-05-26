@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import style from "./MyChallengePageStyle.module.css";
-import { AccountRoleContext, LanguageContext } from "../../../App";
+import { AccountBasicInfoContext, LanguageContext } from "../../../App";
 import { useNavigate } from "react-router-dom";
 import { sendApi } from "../../../utils/apiUtil";
 import { BarLoader, ScaleLoader } from "react-spinners";
@@ -11,7 +11,7 @@ function MyChallengePage() {
   const navigate = useNavigate();
 
   // Context
-  const { accountRole } = useContext(AccountRoleContext);
+  const { accountBasicInfo } = useContext(AccountBasicInfoContext);
   const { language } = useContext(LanguageContext);
 
   // State
@@ -25,9 +25,9 @@ function MyChallengePage() {
 
     setIsFetching(true);
 
-    if(accountRole === null) {
+    if(accountBasicInfo === null) {
       return;
-    } else if(accountRole === undefined) {
+    } else if(accountBasicInfo === undefined) {
       alert("로그인이 필요한 서비스입니다.");
       navigate("/login");
     } else {
@@ -48,7 +48,7 @@ function MyChallengePage() {
       
       getMyChallenges();
     }
-  }, [accountRole]);
+  }, [accountBasicInfo]);
 
   return (
     <div id={style["container"]}>

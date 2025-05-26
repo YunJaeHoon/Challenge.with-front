@@ -12,6 +12,7 @@ import closeEyesIcon from "../../assets/CloseEyesIcon.svg"
 import googleIcon from "../../assets/GoogleIcon.svg"
 import kakaoIcon from "../../assets/KakaoIcon.svg"
 import naverIcon from "../../assets/NaverIcon.svg"
+import { getCookie } from "../../utils/cookieUtil";
 
 
 function LoginPage() {
@@ -58,7 +59,7 @@ function LoginPage() {
         headers: { "Content-Type": "application/x-www-form-urlencoded" }
     })
     .then((response) => {
-      const accessToken = response.data?.data?.accessToken;
+      const accessToken = getCookie("accessToken");
 
       axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
       window.localStorage.setItem("accessToken", accessToken);
