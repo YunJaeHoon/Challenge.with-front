@@ -66,7 +66,10 @@ function MyChallengePage() {
         </div>
 
         <div id={style["upper-right-subcontainer"]}>
-          <div id={style["create-challenge-button"]} onClick={() => navigate("/create-challenge")}>새 챌린지 생성</div>
+          <div id={style["create-challenge-button"]} onClick={() => navigate("/create-challenge")}>
+            <span className={style["plus-icon"]}>+</span>
+            새 챌린지 생성
+          </div>
         </div>
         
       </div>

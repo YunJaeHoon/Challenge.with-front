@@ -260,10 +260,6 @@ function ChallengeInfo({ challenge }) {
               <div className={style["phase-number"]}>{challenge.currentPhaseNumber}</div>
               <div className={style["phase-unit"]}>{challenge.unit === "DAILY" ? "일" : challenge.unit === "WEEKLY" ? "주" : "월"}차</div>
             </div>
-            <div className={style["phase-name-container"]}>
-              <div className={style["phase-name"]}>{challenge.currentPhaseName}</div>
-              <div className={style["phase-description"]}>{challenge.currentPhaseDescription}</div>
-            </div>
           </div>
 
           <div className={style["phase-right-subheader"]} style={challenge.currentPhaseDescription === "" ? {alignItems: "center"} : {alignItems: "start"}}>
@@ -272,6 +268,11 @@ function ChallengeInfo({ challenge }) {
             </div>
           </div>
           
+        </div>
+
+        <div className={style["phase-name-container"]}>
+          <div className={style["phase-name"]}>{challenge.currentPhaseName}</div>
+          <div className={style["phase-description"]}>{challenge.currentPhaseDescription}</div>
         </div>
 
         {
@@ -305,8 +306,7 @@ function ChallengeInfo({ challenge }) {
           <div className={style["comment-left-subcontainer"]}>
             <div className={style["comment-description"]}>한마디</div>
             <div
-              className={style["comment-update-button"]}
-              style={{backgroundColor: isChangingComment ? "#ffebad" : "#e1e1e1"}}
+              className={`${style["comment-update-button"]} ${isChangingComment ? style["comment-update-button-active"] : ""}`}
               onClick={toggleUpdateComment}
             >
               {isChangingComment ? "완료" : "수정하기"}

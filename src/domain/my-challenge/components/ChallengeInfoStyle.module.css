@@ -1,14 +1,16 @@
 .container {
   width: 800px;
+
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.259);
+  transition: transform 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  border-radius: 8px;
+  border-radius: 16px;
   margin-bottom: 30px;
+}
+
+.container:hover {
+  transform: translateY(-2px);
 }
 
 .challenge-header {
@@ -17,73 +19,75 @@
   display: flex;
   justify-content: space-between;
 
-  padding: 15px 20px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  padding: 24px 32px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
 
 .challenge-left-subheader {
   display: flex;
   justify-content: start;
+  gap: 20px;
 }
 
 .challenge-right-subheader {
   display: flex;
   justify-content: end;
+  gap: 12px;
 }
 
 .challenge-icon-container {
-  width: 50px;
-  height: 50px;
-  flex-shrink: 0;
-  overflow: hidden;
+  width: 56px;
+  height: 56px;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
+  
+  background-color: rgba(255, 255, 255, 0.9);
 
-  background-color: white;
-
-  padding: 5px;
-  border-radius: 50%;
-  margin-right: 20px;
+  padding: 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .challenge-icon {
-  width: 75%;
+  width: 70%;
+  height: 70%;
 }
 
 .challenge-title-container {
   display: flex;
   flex-direction: column;
   align-items: start;
+  gap: 8px;
 }
 
 .challenge-title {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  color: black;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
 }
 
 .challenge-description {
   font-size: 1rem;
-  font-weight: 400;
-  color: #232323;
-
-  margin-top: 7px;
+  font-weight: 500;
+  color: #242424;
+  line-height: 1.5;
 }
 
 .challenge-tag {
-  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  font-size: 0.9rem;
   font-weight: 500;
-  white-space: nowrap;
-  color: black;
+  color: #1a1a1a;
+  background-color: rgba(255, 255, 255, 0.9);
 
-  background-color: #ffffff;
-
-  border-radius: 4px;
-  padding: 8px 12px;
-  margin-left: 13px;
+  border-radius: 8px;
+  padding: 8px 16px;
 }
 
 .phase-container {
@@ -92,71 +96,64 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  padding: 24px 32px;
 }
 
 .phase-header {
   width: 100%;
-
   display: flex;
   justify-content: space-between;
 
-  padding: 15px 20px;
-}
-
-.phase-left-subheader {
-  display: flex;
-  justify-content: start;
-}
-
-.phase-right-subheader {
-  display: flex;
-  justify-content: end;
+  margin-bottom: 24px;
 }
 
 .phase-number-and-unit {
-  height: auto;
+  width: fit-content;
+  
   display: flex;
-  justify-content: start;
-  white-space: nowrap;
+  align-items: center;
+  gap: 4px;
 
-  border-radius: 4px;
-  padding: 8px 12px;
+  padding: 8px 16px;
+  border-radius: 12px;
 }
 
 .phase-number {
-  font-size: 1.35rem;
-  font-weight: 650;
-  color: black;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a1a1a;
 }
 
 .phase-unit {
   font-size: 1.3rem;
-  font-weight: 700;
-  color: black;
-
-  margin-left: 1px;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
 .phase-name-container {
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: start;
+  gap: 6px;
 
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .phase-name {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 600;
-  color: black;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
 }
 
 .phase-description {
   font-size: 1rem;
   font-weight: 400;
-  color: #232323;
-
-  margin-top: 5px;
+  color: #666;
+  line-height: 1.5;
 }
 
 .phase-tag {
@@ -171,71 +168,81 @@
 }
 
 .update-toggle-container {
-  width: 80px;
-  height: 80px;
+  width: 88px;
+  height: 88px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   cursor: pointer;
-  transition: all 0.1s ease;
+  transition: all 0.2s ease;
   background-color: white;
 
   border-radius: 50%;
-  border: 8px solid #4B4B4B;
-  margin-top: 20px;
+  border: 3px solid #e0e0e0;
+  margin: 24px 0;
 }
 
 .update-toggle-container:hover {
-  background-color: #cbcbcb;
+  border-color: #1a1a1a;
+  transform: scale(1.05);
 }
 
 .check-icon {
-  width: 40px;
+  width: 44px;
+  height: 44px;
 }
 
 .update-count-container {
   display: flex;
   align-items: center;
+  gap: 24px;
 
-  margin-top: 20px;
+  margin: 24px 0;
 }
 
 .update-count-icon {
-  width: 40px;
+  width: 44px;
+  height: 44px;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.update-count-icon:hover {
+  transform: scale(1.1);
 }
 
 .complete-count {
-  width: 160px;
+  min-width: 180px;
+  background-color: #f8f8f8;
+  
+  font-size: 2rem;
+  font-weight: 700;
   text-align: center;
+  color: #1a1a1a;
 
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: black;
-
-  padding: 8px 0;
-  border-radius: 4px;
-  border: 2.5px solid black;
-  margin: 0 25px;
+  padding: 12px 24px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
 }
 
 .update-description {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  color: #232323;
+  color: #666;
 
-  margin-top: 30px;
-  margin-bottom: 35px;
+  margin: 24px 0;
 }
 
 .comment-container {
-  width: 93%;
+  width: 100%;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  margin-bottom: 16px;
 }
 
 .comment-left-subcontainer {
@@ -251,31 +258,35 @@
 }
 
 .comment-description {
-  font-size: 1.3rem;
-  font-weight: 750;
-  white-space: nowrap;
-  color: black;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
 .comment-update-button {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-
   cursor: pointer;
   transition: all 0.1s ease;
+  background-color: #e1e1e1;
 
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: black;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a1a1a;
 
-  border-radius: 6px;
-  padding: 6px 10px;
-  margin-left: 12px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-left: 10px;
 }
 
 .comment-update-button:hover {
-  filter: brightness(90%);
+  background-color: #d1d1d1;
+}
+
+.comment-update-button-active {
+  background-color: #ffebad;
+}
+
+.comment-update-button-active:hover {
+  background-color: #ffdf42;
 }
 
 .comment-error-message {
@@ -293,41 +304,34 @@
 }
 
 .comment {
-  width: 95%;
-  height: 80px;
+  width: 100%;
+  height: 100px;
+
   resize: none;
-  overflow-wrap: break-word;
-  white-space: pre-wrap;
-
+  transition: border-color 0.2s ease;
+  
   font-size: 1rem;
-  font-weight: 500;
-  color: black;
+  line-height: 1.5;
 
-  padding: 4px 8px;
-  border: 2px solid #949494;
-  margin-top: 7px;
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
 }
 
-.comment::-webkit-scrollbar {
-  width: 10px;
-}
-
-.comment::-webkit-scrollbar-thumb {
-  background-color: #20201E;
-}
-
-.comment::-webkit-scrollbar-track {
-  background-color: #949494;
+.comment:focus {
+  outline: none;
+  border-color: #1a1a1a;
 }
 
 .evidence-photo-container {
-  width: 93%;
+  width: 100%;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  margin-top: 40px;
+  padding: 24px 32px;
+  margin-top: 32px;
 }
 
 .evidence-photo-left-subcontainer {
@@ -343,31 +347,26 @@
 }
 
 .evidence-photo-description {
-  font-size: 1.3rem;
-  font-weight: 750;
-  white-space: nowrap;
-  color: black;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
 .evidence-photo-insert-button {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-
+  background-color: #e1e1e1;
   cursor: pointer;
-  transition: all 0.1s ease;
-  background-color: #E1E1E1;
-
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: black;
-
-  border-radius: 6px;
-  padding: 6px 10px;
+  transition: all 0.2s ease;
+  
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  
+  padding: 8px 16px;
+  border-radius: 8px;
 }
 
 .evidence-photo-insert-button:hover {
-  filter: brightness(90%)
+  background-color: #d1d1d1;
 }
 
 .deactivated-evidence-photo-insert-button {
@@ -380,88 +379,88 @@
 }
 
 .evidence-photo-count {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: black;
+  background-color: #f0f0f0;
 
-  border-radius: 6px;
-  padding: 6px 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+
+  padding: 6px 12px;
+  border-radius: 8px;
   margin-left: 12px;
 }
 
 .evidence-photo-list {
-  width: 93%;
-  gap: 10px;
-  overflow-x: auto;
-
+  width: 100%;
   display: flex;
 
-  padding: 10px 0;
-  margin-top: 15px;
-  margin-bottom: 18px;
+  gap: 16px;
+  overflow-x: auto;
+
+  padding: 16px 32px;
+  margin-bottom: 30px;
 }
 
 .evidence-photo-item {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
+  flex-shrink: 0;
 }
 
 .evidence-photo {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-  aspect-ratio: 1;
-  background-color: #f5f5f5;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  transition: transform 0.2s ease;
 
-  border-radius: 5px;
-  border: 2px solid black;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+}
+
+.evidence-photo:hover {
+  transform: scale(1.02);
 }
 
 .delete-evidence-photo-button {
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  transition: all 0.1s ease;
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  top: -8px;
+  right: -8px;
 
-  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #ff3d00;
+  
+  font-size: 1rem;
   font-weight: 600;
   color: white;
-  background-color: #FF3D00;
 
   border: none;
   border-radius: 50%;
 }
 
 .delete-evidence-photo-button:hover {
-  filter: brightness(90%);
-}
-
-.delete-evidence-photo-button:disabled {
-  background-color: #dbdbdb;
-  cursor: default;
-}
-
-.delete-evidence-photo-button:disabled:hover {
-  filter: none;
+  transform: scale(1.1);
+  background-color: #ff5722;
 }
 
 .evidence-photo-error-message {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #FF3D00;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ff3d00;
 
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 8px;
 }
 
 .evidence-photo-not-found-message {
   font-size: 1.1rem;
-  font-weight: 600;
-  color: black;
+  font-weight: 500;
+  text-align: center;
+  color: #666;
 
-  margin-top: 40px;
-  margin-bottom: 45px;
+  margin: 0 32px 50px;
 }
