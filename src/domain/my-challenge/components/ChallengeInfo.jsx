@@ -8,7 +8,17 @@ import style from "./ChallengeInfoStyle.module.css";
 import checkIcon from "../../../assets/CheckIcon.svg";
 import increaseCountIcon from "../../../assets/IncreaseCountIcon.svg";
 import decreaseCountIcon from "../../../assets/DecreaseCountIcon.svg";
-import { RiHeart2Fill } from "@remixicon/react";
+
+// 색상 이름에 따른 실제 색상 코드 매핑
+const COLOR_THEME_MAP = {
+  RED: "#FF3D00",
+  ORANGE: "#FF9800",
+  YELLOW: "#FFC107",
+  GREEN: "#4CAF50",
+  BLUE: "#2196F3",
+  WHITE: "#FFFFFF",
+  GRAY: "#9E9E9E"
+};
 
 function ChallengeInfo({ challenge }) {
 
@@ -216,7 +226,7 @@ function ChallengeInfo({ challenge }) {
   return (
     <div className={style["container"]}>
 
-      <div className={style["challenge-header"]} style={{background: challenge.colorTheme}}>
+      <div className={style["challenge-header"]} style={{background: COLOR_THEME_MAP[challenge.colorTheme]}}>
         
         <div className={style["challenge-left-subheader"]} style={challenge.challengeDescription === "" ? {alignItems: "center"} : {alignItems: "start"}}>
           <div className={style["challenge-icon-container"]}>
@@ -256,14 +266,14 @@ function ChallengeInfo({ challenge }) {
         <div className={style["phase-header"]}>
 
           <div className={style["phase-left-subheader"]} style={challenge.currentPhaseDescription === "" ? {alignItems: "center"} : {alignItems: "start"}}>
-            <div className={style["phase-number-and-unit"]} style={{backgroundColor: `${challenge.colorTheme}50`}}>
+            <div className={style["phase-number-and-unit"]} style={{backgroundColor: `${COLOR_THEME_MAP[challenge.colorTheme]}50`}}>
               <div className={style["phase-number"]}>{challenge.currentPhaseNumber}</div>
               <div className={style["phase-unit"]}>{challenge.unit === "DAILY" ? "일" : challenge.unit === "WEEKLY" ? "주" : "월"}차</div>
             </div>
           </div>
 
           <div className={style["phase-right-subheader"]} style={challenge.currentPhaseDescription === "" ? {alignItems: "center"} : {alignItems: "start"}}>
-            <div className={style["phase-tag"]} style={{backgroundColor: `${challenge.colorTheme}50`}}>
+            <div className={style["phase-tag"]} style={{backgroundColor: `${COLOR_THEME_MAP[challenge.colorTheme]}50`}}>
               {challenge.currentPhaseEndDate} 까지
             </div>
           </div>
@@ -289,7 +299,7 @@ function ChallengeInfo({ challenge }) {
 
           <div className={style["update-count-container"]}>
             <img src={decreaseCountIcon} className={style["update-count-icon"]} onClick={decreaseCompleteCount} alt="감소" />
-            <div className={style["complete-count"]} style={{backgroundColor: `${challenge.colorTheme}50`}}>
+            <div className={style["complete-count"]} style={{backgroundColor: `${COLOR_THEME_MAP[challenge.colorTheme]}50`}}>
               {completeCount} / {challenge.goalCount}
             </div>
             <img src={increaseCountIcon} className={style["update-count-icon"]} onClick={increaseCompleteCount} alt="증가" />
@@ -343,7 +353,7 @@ function ChallengeInfo({ challenge }) {
           <div className={style["evidence-photo-description"]}>증거사진</div>
           <div
             className={style["evidence-photo-count"]}
-            style={{backgroundColor: `${challenge.colorTheme}50`}}
+            style={{backgroundColor: `${COLOR_THEME_MAP[challenge.colorTheme]}50`}}
           >
             {evidencePhotoList.length} / {challenge.maxEvidencePhotoCount}
           </div>
