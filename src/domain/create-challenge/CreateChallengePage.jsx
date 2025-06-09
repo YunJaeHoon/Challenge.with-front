@@ -59,18 +59,26 @@ function CreateChallengePage() {
   const totalIconPages = Math.ceil(Object.keys(RemixIcons).length / iconsPerPage);
 
   const fetchFriendList = async (page) => {
-    const friendListData = await sendApi(`/api/friend?page=${page}&size=1&sort=createdAt,desc`, "GET", true, {});
-    
-    if (friendListData) {
-      if (friendListData.code === "FRIEND_NOT_FOUND") {
-        setFriendError(friendListData.message);
-        setFriendList([]);
-        setTotalFriendPages(0);
-      } else {
-        setFriendList(friendListData.friendList);
-        setTotalFriendPages(friendListData.totalPageCount);
-        setFriendError(null);
+    try {
+      const friendListData = await sendApi(`/api/friend?page=${page}&size=1&sort=createdAt,desc`, "GET", true, {});
+      
+      if (friendListData) {
+        if (friendListData.code === "FRIEND_NOT_FOUND") {
+          setFriendError("친구가 없습니다.");
+          setFriendList([]);
+          setTotalFriendPages(0);
+        } else {
+          setFriendList(friendListData.friendList);
+          setTotalFriendPages(friendListData.totalPageCount);
+          setFriendError(null);
+        }
       }
+    } catch (error) {
+      setFriendError("친구가 없습니다.");
+      setFriendList([]);
+      setTotalFriendPages(0);
+    } finally {
+      setIsFetching(false);
     }
   };
 
@@ -86,17 +94,20 @@ function CreateChallengePage() {
       navigate("/login");
     } else {
       const getMyChallenges = async () => {
-        const myChallengesData = await sendApi("/api/challenge/me/ongoing", "GET", true, {});
-        
-        if (myChallengesData) {
-          if (myChallengesData.countChallenge > myChallengesData.maxChallengeCount) {
-            alert("챌린지를 최대로 참여하고 있습니다.");
-            navigate("/my-challenge");
+        try {
+          const myChallengesData = await sendApi("/api/challenge/me/ongoing", "GET", true, {});
+          
+          if (myChallengesData) {
+            if (myChallengesData.countChallenge >= myChallengesData.maxChallengeCount) {
+              alert("챌린지를 최대로 참여하고 있습니다.");
+              navigate("/my-challenge");
+            }
           }
+        } catch (error) {
+          console.error("챌린지 정보를 가져오는데 실패했습니다:", error);
         }
 
         await fetchFriendList(0);
-        setIsFetching(false);
       };
 
       getMyChallenges();
@@ -156,10 +167,10 @@ function CreateChallengePage() {
         inviteUserIdList: selectedFriends.map(friend => friend.userId),
       };
 
-      const response = await sendApi("/api/challenge", "POST", true, challengeData);
-      if (response) {
-        navigate("/my-challenge");
-      }
+      await sendApi("/api/challenge", "POST", true, challengeData);
+      
+      alert("챌린지가 생성되었습니다!");
+      navigate("/my-challenge");
     } catch (error) {
       setError(error.response?.data?.message || "챌린지 생성 중 오류가 발생했습니다.");
     }

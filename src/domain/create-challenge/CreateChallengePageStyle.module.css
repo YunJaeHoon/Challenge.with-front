@@ -117,9 +117,9 @@ button:hover {
 }
 
 button.active {
-  background-color: #2196f3;
+  background-color: #ff8800;
   color: white;
-  border-color: #2196f3;
+  border-color: #ff8800;
 }
 
 input[type="number"] {
@@ -151,7 +151,7 @@ input[type="number"] {
 }
 
 .friendItem.selected {
-  border-color: #2196f3;
+  border-color: #ff8800;
   background-color: #e3f2fd;
 }
 
@@ -165,7 +165,7 @@ input[type="number"] {
 .createButton {
   width: 100%;
   padding: 1rem;
-  background-color: #2196f3;
+  background-color: #ffa600;
   color: white;
   border: none;
   border-radius: 4px;
@@ -175,7 +175,7 @@ input[type="number"] {
 }
 
 .createButton:hover {
-  background-color: #1976d2;
+  background-color: #ff8800;
 }
 
 .createButton:disabled {

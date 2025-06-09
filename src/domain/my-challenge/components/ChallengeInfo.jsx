@@ -37,7 +37,7 @@ function ChallengeInfo({ challenge }) {
   const [isDeletingPhoto, setIsDeletingPhoto] = useState(false);                          // 증거사진을 삭제 중인가?
 
   // 아이콘 컴포넌트 동적 생성
-  const IconComponent = RemixIcons[`Ri${challenge.icon}`];
+  const IconComponent = RemixIcons[challenge.icon];
 
   // 페이즈 완료 토글
   const toggleCompleteCount = async () => {
