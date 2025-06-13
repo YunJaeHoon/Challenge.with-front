@@ -34,12 +34,14 @@ function CreateChallengePage() {
   const iconsPerPage = 12;
 
   const colorOptions = [
-    { value: "RED", label: "빨강", color: "#FF3D00" },
-    { value: "ORANGE", label: "주황", color: "#FF9000" },
-    { value: "YELLOW", label: "노랑", color: "#FFD400" },
-    { value: "GREEN", label: "초록", color: "#30DE20" },
-    { value: "BLUE", label: "파랑", color: "#59C5FF" },
-    { value: "WHITE", label: "하양", color: "#FFFFFF" },
+    { value: "RED", label: "빨강", color: "#FF876F" },
+    { value: "ORANGE", label: "주황", color: "#FFBC64" },
+    { value: "YELLOW", label: "노랑", color: "#FFE356" },
+    { value: "GREEN", label: "초록", color: "#81E58C" },
+    { value: "SKYBLUE", label: "하늘", color: "#7EEEF4" },
+    { value: "BLUE", label: "파랑", color: "#63C3FF" },
+    { value: "PURPLE", label: "보라", color: "#DAB3FF" },
+    { value: "PINK", label: "분홍", color: "#FFD1D1" },
     { value: "GRAY", label: "회색", color: "#C4C4C4" },
   ];
 
@@ -193,7 +195,7 @@ function CreateChallengePage() {
 
   return (
     <div className={style.container}>
-      <h1>새로운 챌린지 만들기</h1>
+      <h1 style={{textAlign: "center", margin: "3rem 0"}}>챌린지 생성</h1>
       
       {error && <div className={style.error}>{error}</div>}
 

@@ -1,9 +1,9 @@
 .container {
-  width: 800px;
+  width: 720px;
 
   background-color: white;
   transition: transform 0.2s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 
   border-radius: 16px;
   margin-bottom: 30px;
@@ -105,7 +105,7 @@
   display: flex;
   justify-content: space-between;
 
-  margin-bottom: 24px;
+  margin-bottom: 15px;
 }
 
 .phase-number-and-unit {
@@ -232,7 +232,7 @@
   font-weight: 500;
   color: #666;
 
-  margin: 24px 0;
+  margin-bottom: 24px;
 }
 
 .comment-container {
@@ -331,7 +331,6 @@
   align-items: center;
 
   padding: 24px 32px;
-  margin-top: 32px;
 }
 
 .evidence-photo-left-subcontainer {
@@ -451,9 +450,11 @@
 .evidence-photo-error-message {
   font-size: 1rem;
   font-weight: 500;
+  text-align: center;
   color: #ff3d00;
 
   margin-top: 8px;
+  margin-bottom: 18px;
 }
 
 .evidence-photo-not-found-message {

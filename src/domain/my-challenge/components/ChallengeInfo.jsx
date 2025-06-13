@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { sendApi } from "../../../utils/apiUtil";
-import { LanguageContext } from "../../../App";
+import { LanguageContext, AccountBasicInfoContext } from "../../../App";
 import axios from "axios";
 import * as RemixIcons from "@remixicon/react";
 
@@ -11,19 +11,22 @@ import decreaseCountIcon from "../../../assets/DecreaseCountIcon.svg";
 
 // 색상 이름에 따른 실제 색상 코드 매핑
 const COLOR_THEME_MAP = {
-  RED: "#FF3D00",
-  ORANGE: "#FF9800",
-  YELLOW: "#FFC107",
-  GREEN: "#4CAF50",
-  BLUE: "#2196F3",
-  WHITE: "#FFFFFF",
-  GRAY: "#9E9E9E"
+  RED: "#FF876F",
+  ORANGE: "#FFBC64",
+  YELLOW: "#FFE356",
+  GREEN: "#81E58C",
+  SKYBLUE: "#7EEEF4",
+  BLUE: "#63C3FF",
+  PURPLE: "#DAB3FF",
+  PINK: "#FFD1D1",
+  GRAY: "#C4C4C4"
 };
 
 function ChallengeInfo({ challenge }) {
 
   // Context
   const { language } = useContext(LanguageContext);
+  const { accountBasicInfo } = useContext(AccountBasicInfoContext);
 
   // State
   const [completeCount, setCompleteCount] = useState(challenge.completeCount);  // 달성 개수
@@ -140,6 +143,12 @@ function ChallengeInfo({ challenge }) {
   // 증거사진 추가
   async function addEvidencePhotos(e)
   {
+    // 프리미엄 계정 체크
+    if (!accountBasicInfo.isPremium) {
+      alert("프리미엄 계정만 증거사진을 추가할 수 있습니다.");
+      return;
+    }
+
     const files = e.target.files;
     if (!files || files.length === 0) return;
 

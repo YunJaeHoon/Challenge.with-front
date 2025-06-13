@@ -117,9 +117,8 @@ button:hover {
 }
 
 button.active {
-  background-color: #ff8800;
-  color: white;
-  border-color: #ff8800;
+  border-color: #2196f3;
+  background-color: #e3f2fd;
 }
 
 input[type="number"] {
@@ -151,7 +150,7 @@ input[type="number"] {
 }
 
 .friendItem.selected {
-  border-color: #ff8800;
+  border-color: #2196f3;
   background-color: #e3f2fd;
 }
 
