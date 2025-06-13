@@ -33,6 +33,8 @@ function CreateChallengePage() {
   const [friendError, setFriendError] = useState(null);
   const iconsPerPage = 12;
 
+  const MAX_FRIENDS = accountBasicInfo?.isPremium ? 99 : 4;
+
   const colorOptions = [
     { value: "RED", label: "빨강", color: "#FF876F" },
     { value: "ORANGE", label: "주황", color: "#FFBC64" },
@@ -62,7 +64,7 @@ function CreateChallengePage() {
 
   const fetchFriendList = async (page) => {
     try {
-      const friendListData = await sendApi(`/api/friend?page=${page}&size=1&sort=createdAt,desc`, "GET", true, {});
+      const friendListData = await sendApi(`/api/friend?page=${page}&size=10&sort=createdAt,desc`, "GET", true, {});
       
       if (friendListData) {
         if (friendListData.code === "FRIEND_NOT_FOUND") {
@@ -145,6 +147,9 @@ function CreateChallengePage() {
     }
     if (isPublic === null) {
       return "공개 여부를 선택해주세요.";
+    }
+    if (!isAlone && selectedFriends.length > MAX_FRIENDS) {
+      return `최대 ${MAX_FRIENDS}명의 친구만 초대할 수 있습니다.`;
     }
     return null;
   };
@@ -350,6 +355,14 @@ function CreateChallengePage() {
       {!isAlone && (
         <div className={style.section}>
           <h2>친구 초대</h2>
+          <div className={style.friendLimit}>
+            <span>초대 가능 인원수 : {selectedFriends.length} / {MAX_FRIENDS}</span>
+            {selectedFriends.length > MAX_FRIENDS && (
+              <div className={style.error}>
+                최대 {MAX_FRIENDS}명의 친구만 초대할 수 있습니다.
+              </div>
+            )}
+          </div>
           {friendError ? (
             <div className={style.friendError}>{friendError}</div>
           ) : (
