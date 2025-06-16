@@ -88,3 +88,10 @@
   
   padding: 0 40px;
 }
+
+#empty-message {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1.1rem;
+}

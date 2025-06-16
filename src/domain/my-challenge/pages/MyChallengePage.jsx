@@ -76,11 +76,17 @@ function MyChallengePage() {
 
       <div id={style["challenge-list-container"]}>
         {
-          isFetching ?
-          <BarLoader /> :
-          myChallengeList.map((challenge) => {
-            return <ChallengeInfo key={challenge.challengeId} challenge={challenge} />
-          })
+          isFetching ? (
+            <BarLoader />
+          ) : myChallengeList.length === 0 ? (
+            <div id={style["empty-message"]}>
+              현재 진행 중인 챌린지가 없습니다.
+            </div>
+          ) : (
+            myChallengeList.map((challenge) => {
+              return <ChallengeInfo key={challenge.challengeId} challenge={challenge} />
+            })
+          )
         }
       </div>
       

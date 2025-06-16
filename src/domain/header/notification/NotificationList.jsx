@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from "react"
 import style from "./NotificationListStyle.module.css"
-import { sendApi } from "../../utils/apiUtil";
+import { sendApi } from "../../../utils/apiUtil";
 
-import nextPageIcon from "../../assets/NextNotificationPageIcon.svg"
-import deleteIcon from "../../assets/DeleteNotificationIcon.svg"
+import nextPageIcon from "../../../assets/NextNotificationPageIcon.svg"
+import deleteIcon from "../../../assets/DeleteNotificationIcon.svg"
+
+import FriendRequestNotification from "./FriendRequestNotification";
+import ChallengeInviteNotification from "./ChallengeInviteNotification";
 
 const NotificationList = React.memo(({ isClicked }) => {
 
@@ -62,34 +65,47 @@ const NotificationList = React.memo(({ isClicked }) => {
   }
 
   // 알림 삭제 함수
-  const deleteNotification = async (notificationId) => {
-    const confirmRes = window.confirm("정말 알림을 삭제하시겠습니까?");
-  
-    if(confirmRes) {
+  const deleteNotification = async (notificationId, skipApiCall = false) => {
+    if (!skipApiCall) {
+      const confirmRes = window.confirm("정말 알림을 삭제하시겠습니까?");
+      if (!confirmRes) return;
+
       await sendApi(`/api/notification/${notificationId}`, "DELETE", true);
-  
-      setNotificationList((prev) => {
-        const updatedList = prev.filter((notification) => notification.notificationId !== notificationId);
-  
-        if (updatedList.length === 0) {
-          setIsEmpty(true);
-        }
-  
-        return updatedList;
-      });
     }
+
+    setNotificationList((prev) => {
+      const updatedList = prev.filter((notification) => notification.notificationId !== notificationId);
+
+      if (updatedList.length === 0) {
+        setIsEmpty(true);
+      }
+
+      return updatedList;
+    });
   };
 
-  return (
-    <div id={style["main-container"]} style={isClicked ? {display: "flex"} : {display: "none"}}>
-      <div id={style["list-container"]}>
-
-        <div id={style["main-title"]}>[ 알림 ]</div>
-
-        {/* 알림 리스트 */}
-        {notificationList.map((notification, index) => 
+  // 알림 타입에 따른 컴포넌트 렌더링
+  const renderNotification = (notification, index) => {
+    switch (notification.type) {
+      case "FRIEND_REQUEST":
+        return (
+          <FriendRequestNotification 
+            key={notification.notificationId}
+            notification={notification}
+            onDelete={deleteNotification}
+          />
+        );
+      case "INVITE_CHALLENGE":
+        return (
+          <ChallengeInviteNotification 
+            key={notification.notificationId}
+            notification={notification}
+            onDelete={deleteNotification}
+          />
+        );
+      default:
+        return (
           <div key={notification.notificationId} className={style["list-element"]}>
-
             <div className={style["notification-title-container"]}>
               <div className={style["notification-title-left-subcontainer"]}>
                 {!notification.isRead && <div className={style["new-notification-mark"]}></div>}
@@ -107,9 +123,18 @@ const NotificationList = React.memo(({ isClicked }) => {
             {
               (index < notificationList.length - 1) ? <div className={style["notification-line"]}></div> : ""
             }
-
           </div>
-        )}
+        );
+    }
+  };
+
+  return (
+    <div id={style["main-container"]} style={isClicked ? {display: "flex"} : {display: "none"}}>
+      <div id={style["list-container"]}>
+        <div id={style["main-title"]}>[ 알림 ]</div>
+
+        {/* 알림 리스트 */}
+        {notificationList.map((notification, index) => renderNotification(notification, index))}
 
         {/* 알림 불러오는 중 */}
         {
@@ -118,7 +143,6 @@ const NotificationList = React.memo(({ isClicked }) => {
           hasMorePage ? <img src={nextPageIcon} id={style["next-page-button"]} onClick={getNextNotificationList} /> :
           ""
         }
-
       </div>
     </div>
   );

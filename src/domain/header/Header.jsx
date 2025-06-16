@@ -12,7 +12,7 @@ import HeaderLink from "./HeaderLink";
 import Hamburger from "./Hamburger";
 import HamburgerLink from "./HamburgerLink";
 import { sendApi } from "../../utils/apiUtil";
-import NotificationList from "./NotificationList";
+import NotificationList from "./notification/NotificationList";
 
 function Header() {
 
