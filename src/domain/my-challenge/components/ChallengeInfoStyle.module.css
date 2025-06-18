@@ -421,10 +421,10 @@
 
 .delete-evidence-photo-button {
   position: absolute;
-  width: 28px;
-  height: 28px;
-  top: -8px;
-  right: -8px;
+  width: 24px;
+  height: 24px;
+  top: -6px;
+  right: -6px;
 
   display: flex;
   justify-content: center;
@@ -440,6 +440,7 @@
 
   border: none;
   border-radius: 50%;
+  padding: 0;
 }
 
 .delete-evidence-photo-button:hover {
