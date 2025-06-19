@@ -15,6 +15,7 @@ import MyChallengePage from './domain/my-challenge/pages/MyChallengePage.jsx'
 import { getCookie } from './utils/cookieUtil.js'
 import MyProfilePage from './domain/my-profile/MyProfilePage.jsx'
 import CreateChallengePage from './domain/create-challenge/CreateChallengePage.jsx'
+import ChallengeInfoPage from './domain/challenge-info/ChallengeInfoPage.jsx'
 
 // Context API
 export const LanguageContext = createContext();
@@ -81,6 +82,7 @@ function App() {
             <Route path="/my-challenge" element={<MyChallengePage />} />
             <Route path="/my-profile" element={<MyProfilePage />} />
             <Route path="/create-challenge" element={<CreateChallengePage />} />
+            <Route path="/challenge/:challengeId" element={<ChallengeInfoPage />} />
           </Routes>
         </div>
 

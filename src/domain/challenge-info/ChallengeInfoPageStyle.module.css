@@ -1,0 +1,490 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f7f8fa;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 32px 40px 24px 40px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  margin-bottom: 24px;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  gap: 32px;
+  padding: 0 40px 40px 40px;
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.left {
+  width: 260px;
+  min-width: 200px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.right {
+  max-width: 800px;
+  flex: 1;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 24px 32px;
+  min-width: 320px;
+}
+
+.loading, .error {
+  width: 100%;
+  text-align: center;
+  margin-top: 80px;
+  font-size: 1.2rem;
+  color: #888;
+}
+
+@media (max-width: 900px) {
+  .body {
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 8px 24px 8px;
+  }
+  .left, .right {
+    width: 100%;
+    min-width: 0;
+  }
+  .header {
+    padding: 24px 8px 16px 8px;
+    font-size: 1.3rem;
+  }
+}
+
+/* ChallengeHeader 영역 */
+.challengeHeader {
+  width: 100%;
+  max-width: 1095px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  background: white;
+  padding: 16px 24px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.iconWrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 2.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.infoWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.name {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.desc {
+  color: #666;
+  font-size: 1.05rem;
+}
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 0.98rem;
+  color: #888;
+}
+
+/* ParticipantList 영역 */
+.participantList {
+  width: 100%;
+}
+.participantTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.participantUl {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.participantItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  position: relative;
+}
+.participantItem:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: #f0f0f0;
+}
+.profileImg {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e5e7eb;
+}
+.participantInfo {
+  display: flex;
+  flex-direction: column;
+}
+.nickname {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.role {
+  font-size: 0.92rem;
+  font-weight: 400;
+}
+.determination {
+  font-size: 0.92rem;
+  font-weight: 400;
+  margin-top: 5px;
+}
+
+/* MyStatus 영역 */
+.myStatusContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.myStatusProfile {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.myStatusPhaseInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.myStatusCountBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+  margin-bottom: 15px;
+}
+.countBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 8px;
+  background: #d8d8d8;
+  color: #222;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.countBtn:disabled {
+  background: #f5f5f5;
+  color: #bbb;
+  cursor: not-allowed;
+}
+.countBtn:hover:not(:disabled) {
+  background: #bdbdbd;
+}
+.countValue {
+  font-size: 1.2rem;
+  font-weight: 600;
+  min-width: 32px;
+  text-align: center;
+  margin: 0 10px;
+}
+.myStatusCommentBox {
+  background: #eff1f5;
+  border-radius: 12px;
+  padding: 18px 24px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.commentHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.commentTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.commentEditBtn {
+  background: #d8d8d8;
+  color: #222;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 14px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.commentEditBtn:disabled {
+  background: #f5f5f5;
+  color: #bbb;
+  cursor: not-allowed;
+}
+.commentEditBtn:hover:not(:disabled) {
+  background: #bdbdbd;
+}
+.commentError {
+  color: #ff5a5a;
+  font-size: 0.98rem;
+}
+.commentBox {
+  width: 100%;
+  min-height: 60px;
+  background-color: #f6f8fa;
+  border-radius: 8px;
+  border: 1.5px solid #e5e7eb;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  resize: vertical;
+}
+.myStatusEvidenceBox {
+  background: #eff1f5;
+  border-radius: 12px;
+  padding: 18px 24px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.evidenceHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.evidenceTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.evidenceCount {
+  color: #222;
+  background: #e5e5e5;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.evidenceList {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  margin-top: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.evidenceItem {
+  position: relative;
+  display: inline-block;
+}
+.evidenceImg {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1.5px solid #e5e7eb;
+}
+.evidenceDeleteBtn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  color: #ff5a5a;
+  border: 1.5px solid #ff5a5a;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  transition: background 0.1s, color 0.15s, border 0.15s;
+  z-index: 1;
+  padding: 0;
+}
+.evidenceDeleteBtn:hover:not(:disabled) {
+  background: #ff5a5a;
+  color: #fff;
+  border: 1.5px solid #ff5a5a;
+}
+.evidenceUploadBox {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.evidenceUploadBtn {
+  background: #d8d8d8;
+  color: #222;
+  border-radius: 8px;
+  padding: 6px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background 0.1s;
+}
+.evidenceUploadBtnDisabled {
+  background: #f5f5f5;
+  color: #bbb;
+  border-radius: 8px;
+  padding: 6px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: not-allowed;
+  border: none;
+}
+.evidenceUploadBtn:hover:not(:disabled) {
+  background: #bdbdbd;
+}
+.evidenceError {
+  color: #ff5a5a;
+  font-size: 0.98rem;
+}
+
+.tag {
+  font-size: 0.95rem;
+  color: #2563eb;
+  background: #e7f0fb;
+  border-radius: 8px;
+  padding: 2px 10px;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.unitText {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #222;
+  margin-right: 18px;
+}
+
+.myStatusUserBox {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: #eff1f5;
+  border-radius: 12px;
+  padding: 18px 24px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  margin-bottom: 0;
+}
+.myStatusPhaseBox {
+  background: #eff1f5;
+  border-radius: 12px;
+  padding: 18px 24px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 0;
+}
+
+.phaseTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.phaseDate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+.phaseDateTag {
+  color: #222;
+  background: #c6c6c6;
+  border-radius: 8px;
+  padding: 3px 14px;
+  font-size: 1.0rem;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+.phaseDateTilde {
+  color: #888;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.toggleBtn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid #adb1b7;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.1s, border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  cursor: pointer;
+  padding: 0;
+}
+.toggleBtn[aria-pressed="true"] {
+  background: #4B4B4B22;
+  border: 2px solid #4B4B4B;
+}
+.toggleBtn:hover:not([aria-pressed="true"]):not(:disabled) {
+  background: #e5e7eb;
+  border: 2px solid #696969;
+}
+.toggleBtn img {
+  width: 28px;
+  height: 28px;
+}
