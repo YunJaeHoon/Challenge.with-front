@@ -1,34 +1,11 @@
 import React from "react";
 import styles from "./ChallengeInfoPageStyle.module.css";
 import * as RemixIcons from "@remixicon/react";
-
-// colorTheme에 따른 색상 매핑
-const COLOR_MAP = {
-  RED: "#ff5a5a",
-  ORANGE: "#ff9900",
-  YELLOW: "#ffd600",
-  GREEN: "#22c55e",
-  SKYBLUE: "#38bdf8",
-  BLUE: "#2563eb",
-  PRUPLE: "#a259ff",
-  PINK: "#ff6fcb",
-  GRAY: "#bdbdbd",
-};
-
-function getUnitText(unit) {
-  switch (unit) {
-    case "DAILY": return "[ 일간 챌린지 ]";
-    case "WEEKLY": return "[ 주간 챌린지 ]";
-    case "MONTHLY": return "[ 월간 챌린지 ]";
-    default: return null;
-  }
-}
+import { COLOR_MAP, getUnitText } from "./colorUtil";
 
 function ChallengeHeader({ challengeInfo }) {
   if (!challengeInfo) return null;
-  const { icon, colorTheme, name, description, startDate, isPublic, maxParticipantCount, unit } = challengeInfo;
-
-  // RemixIcons에서 동적으로 아이콘 컴포넌트 가져오기
+  const { icon, colorTheme = 'GREEN', name, description, startDate, isPublic, maxParticipantCount, unit } = challengeInfo;
   const IconComponent = RemixIcons[icon];
   const themeColor = COLOR_MAP[colorTheme] || COLOR_MAP.GREEN;
   const unitText = getUnitText(unit);

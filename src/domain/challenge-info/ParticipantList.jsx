@@ -1,33 +1,26 @@
 import React from "react";
 import styles from "./ChallengeInfoPageStyle.module.css";
+import { COLOR_MAP } from "./colorUtil";
 
-const COLOR_MAP = {
-  RED: "#ff5a5a",
-  ORANGE: "#ff9900",
-  YELLOW: "#ffd600",
-  GREEN: "#22c55e",
-  SKYBLUE: "#38bdf8",
-  BLUE: "#2563eb",
-  PRUPLE: "#a259ff",
-  PINK: "#ff6fcb",
-  GRAY: "#bdbdbd",
-};
-
-function ParticipantList({ participants, maxParticipantCount, colorTheme }) {
-
+function ParticipantList({ participants = [], maxParticipantCount, colorTheme = 'GREEN', onParticipantClick, selectedUserId }) {
   const themeColor = COLOR_MAP[colorTheme] || COLOR_MAP.GREEN;
-  if (!participants || participants.length === 0) return <div>참가자가 없습니다.</div>;
-  
+  if (!participants.length) return <div>참가자가 없습니다.</div>;
+
   return (
     <div className={styles.participantList}>
       <div className={styles.participantTitle}>참가자 ({participants.length}/{maxParticipantCount})</div>
       <ul className={styles.participantUl}>
-        {participants.map((p) => (
-          <li key={p.id} className={styles.participantItem}>
-            <img src={p.profileImageUrl} alt={p.nickname} className={styles.profileImg} />
+        {participants.map(({ id, profileImageUrl, nickname, challengeRole }) => (
+          <li
+            key={id}
+            className={styles.participantItem}
+            style={selectedUserId === id ? { background: themeColor + '22', borderRadius: 8, cursor: 'pointer' } : { cursor: 'pointer' }}
+            onClick={() => onParticipantClick && onParticipantClick(id, nickname)}
+          >
+            <img src={profileImageUrl} alt={nickname} className={styles.profileImg} />
             <div className={styles.participantInfo}>
-              <span className={styles.nickname}>{p.nickname}</span>
-              <span className={styles.role} style={{ color: themeColor }}>{p.challengeRole === 'SUPER_ADMIN' ? '관리자' : '참가자'}</span>
+              <span className={styles.nickname}>{nickname}</span>
+              <span className={styles.role} style={{ color: themeColor }}>{challengeRole === 'SUPER_ADMIN' ? '관리자' : '참가자'}</span>
             </div>
           </li>
         ))}

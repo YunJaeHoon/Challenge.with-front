@@ -3,20 +3,9 @@ import styles from "./ChallengeInfoPageStyle.module.css";
 import { sendApi } from "../../utils/apiUtil";
 import axios from "axios";
 import checkIcon from "../../assets/CheckIcon.svg";
+import { COLOR_MAP } from "./colorUtil";
 
-const COLOR_MAP = {
-  RED: "#ff5a5a",
-  ORANGE: "#ff9900",
-  YELLOW: "#ffd600",
-  GREEN: "#22c55e",
-  SKYBLUE: "#38bdf8",
-  BLUE: "#2563eb",
-  PRUPLE: "#a259ff",
-  PINK: "#ff6fcb",
-  GRAY: "#bdbdbd",
-};
-
-function MyStatus({ challengeInfo, subInfo, colorTheme }) {
+function MyStatus({ challengeInfo, subInfo, colorTheme = 'GREEN', isReadOnly = false, nickname, myUserId, targetUserId }) {
   if (!subInfo) return null;
   const { userInfo, phaseInfo, participatePhaseInfo } = subInfo;
   const themeColor = COLOR_MAP[colorTheme] || COLOR_MAP.GREEN;
@@ -32,37 +21,23 @@ function MyStatus({ challengeInfo, subInfo, colorTheme }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [evidenceError, setEvidenceError] = useState("");
 
-  // 달성 개수 증가/감소
-  const increaseCount = async () => {
-    if (completeCount >= challengeInfo.goalCount) return;
+  // 개수 증가/감소
+  const handleCount = async (type) => {
+    const next = type === 'inc' ? completeCount + 1 : completeCount - 1;
+    if (next < 0 || next > challengeInfo.goalCount) return;
     try {
-      await sendApi(`/api/participate-phase/${participatePhaseInfo.id}/current-count`, "PATCH", true, { value: completeCount + 1 });
-      setCompleteCount(completeCount + 1);
-    } catch (e) {
-      alert("달성 개수 증가 중 오류가 발생했습니다.");
-    }
-  };
-  const decreaseCount = async () => {
-    if (completeCount <= 0) return;
-    try {
-      await sendApi(`/api/participate-phase/${participatePhaseInfo.id}/current-count`, "PATCH", true, { value: completeCount - 1 });
-      setCompleteCount(completeCount - 1);
-    } catch (e) {
-      alert("달성 개수 감소 중 오류가 발생했습니다.");
+      await sendApi(`/api/participate-phase/${participatePhaseInfo.id}/current-count`, "PATCH", true, { value: next });
+      setCompleteCount(next);
+    } catch {
+      alert(type === 'inc' ? "달성 개수 증가 중 오류가 발생했습니다." : "달성 개수 감소 중 오류가 발생했습니다.");
     }
   };
 
   // 한마디 수정
   const handleCommentChange = (e) => setComment(e.target.value);
   const handleCommentEdit = async () => {
-    if (!isEditingComment) {
-      setIsEditingComment(true);
-      return;
-    }
-    if (comment.length > 1000) {
-      setCommentError("* 한마디는 1000자 이하여야 합니다.");
-      return;
-    }
+    if (!isEditingComment) return setIsEditingComment(true);
+    if (comment.length > 1000) return setCommentError("* 한마디는 1000자 이하여야 합니다.");
     try {
       await sendApi(`/api/participate-phase/${participatePhaseInfo.id}/comment`, "PATCH", true, { comment });
       setIsEditingComment(false);
@@ -133,6 +108,10 @@ function MyStatus({ challengeInfo, subInfo, colorTheme }) {
 
   return (
     <div className={styles.myStatusContainer}>
+      {/* 타인 현황일 때 닉네임 상단 표시 */}
+      {isReadOnly && (
+        <div style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8, color: themeColor }}>{nickname}님의 현황</div>
+      )}
       {/* 사용자 정보 */}
       <div className={styles.myStatusUserBox}>
         <img src={userInfo.profileImageUrl} alt={userInfo.nickname} className={styles.profileImgLarge} />
@@ -157,88 +136,71 @@ function MyStatus({ challengeInfo, subInfo, colorTheme }) {
         </div>
         <div className={styles.myStatusCountBox}>
           {challengeInfo.goalCount === 1 ? (
-            <button
-              className={styles.toggleBtn}
-              onClick={async () => {
-                const newValue = completeCount === 1 ? 0 : 1;
-                try {
-                  await sendApi(`/api/participate-phase/${participatePhaseInfo.id}/current-count`, "PATCH", true, { value: newValue });
-                  setCompleteCount(newValue);
-                } catch (e) {
-                  alert("달성 상태 변경 중 오류가 발생했습니다.");
-                }
-              }}
-              aria-pressed={completeCount === 1}
-              style={{ background: completeCount === 1 ? themeColor : '#eee' }}
-            >
-              {completeCount === 1 ? (
-                <img src={checkIcon} alt="달성됨" style={{ width: 32, height: 32 }} />
-              ) : (
-                <span style={{ fontSize: 28, color: '#aaa' }}></span>
-              )}
-            </button>
+            !isReadOnly && (
+              <button
+                className={styles.toggleBtn}
+                onClick={async () => {
+                  const newValue = completeCount === 1 ? 0 : 1;
+                  try {
+                    await sendApi(`/api/participate-phase/${participatePhaseInfo.id}/current-count`, "PATCH", true, { value: newValue });
+                    setCompleteCount(newValue);
+                  } catch {
+                    alert("달성 상태 변경 중 오류가 발생했습니다.");
+                  }
+                }}
+                aria-pressed={completeCount === 1}
+                style={{ background: completeCount === 1 ? themeColor : '#eee' }}
+              >
+                {completeCount === 1 ? (
+                  <img src={checkIcon} alt="달성됨" style={{ width: 32, height: 32 }} />
+                ) : (
+                  <span style={{ fontSize: 28, color: '#aaa' }}></span>
+                )}
+              </button>
+            )
           ) : (
             <>
-              <button onClick={decreaseCount} disabled={completeCount <= 0} className={styles.countBtn}>-</button>
+              {!isReadOnly && <button onClick={() => handleCount('dec')} disabled={completeCount <= 0} className={styles.countBtn}>-</button>}
               <span className={styles.countValue}>{completeCount} / {challengeInfo.goalCount}</span>
-              <button onClick={increaseCount} disabled={completeCount >= challengeInfo.goalCount} className={styles.countBtn}>+</button>
+              {!isReadOnly && <button onClick={() => handleCount('inc')} disabled={completeCount >= challengeInfo.goalCount} className={styles.countBtn}>+</button>}
             </>
           )}
         </div>
       </div>
-      {/* 중단: 한마디 */}
+      {/* 한마디 */}
       <div className={styles.myStatusCommentBox}>
         <div className={styles.commentHeader}>
           <span className={styles.commentTitle}>한마디</span>
-          <button onClick={handleCommentEdit} className={styles.commentEditBtn}>{isEditingComment ? "완료" : "수정"}</button>
+          {!isReadOnly && <button onClick={handleCommentEdit} className={styles.commentEditBtn}>{isEditingComment ? "완료" : "수정"}</button>}
           <span className={styles.commentError}>{commentError}</span>
         </div>
-        <textarea
-          className={styles.commentBox}
-          value={comment}
-          onChange={handleCommentChange}
-          disabled={!isEditingComment}
-          maxLength={1000}
-          placeholder="한마디를 입력하세요."
-        />
+        {isEditingComment ? (
+          <textarea value={comment} onChange={handleCommentChange} className={styles.commentTextarea} maxLength={1000} />
+        ) : (
+          <div className={styles.commentText}>{comment || <span className={styles.commentPlaceholder}>한마디를 입력해보세요.</span>}</div>
+        )}
       </div>
-      {/* 하단: 증거사진 */}
+      {/* 증거사진 */}
       <div className={styles.myStatusEvidenceBox}>
-        <div className={styles.evidenceHeader}>
-          <span className={styles.evidenceTitle}>증거사진</span>
-          <span className={styles.evidenceCount}>{evidencePhotos.length} / {participatePhaseInfo.maxEvidencePhotoCount}</span>
-        </div>
-        <div className={styles.evidenceList}>
-          {evidencePhotos.length === 0 ? (
-            <div className={styles.noEvidence}>인증 사진이 없습니다.</div>
-          ) : (
-            evidencePhotos.map((photo) => (
-              <div key={photo.id} className={styles.evidenceItem}>
-                <img src={photo.url} alt="evidence" className={styles.evidenceImg} />
-                <button
-                  className={styles.evidenceDeleteBtn}
-                  onClick={() => handleDeleteEvidence(photo.id)}
-                  disabled={isDeleting}
-                >
-                  ×
-                </button>
-              </div>
-            ))
+        <div className={styles.evidenceHeader}>증거사진
+          {!isReadOnly && (
+            <label className={styles.evidenceAddBtn}>
+              {isUploading ? '업로드 중...' : '+ 추가'}
+              <input type="file" multiple accept="image/*" style={{ display: 'none' }} onChange={handleAddEvidence} disabled={isUploading} />
+            </label>
           )}
         </div>
-        <div className={styles.evidenceUploadBox}>
-          <label className={isUploading ? styles.evidenceUploadBtnDisabled : styles.evidenceUploadBtn}>
-            {isUploading ? "업로드 중..." : "증거사진 추가"}
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleAddEvidence}
-              disabled={isUploading}
-              style={{ display: "none" }}
-            />
-          </label>
-          <span className={styles.evidenceError}>{evidenceError}</span>
+        <div className={styles.evidenceError}>{evidenceError}</div>
+        <div className={styles.evidenceList}>
+          {evidencePhotos.length === 0 && <div className={styles.evidencePlaceholder}>사진이 없습니다.</div>}
+          {evidencePhotos.map((photo) => (
+            <div key={photo.id} className={styles.evidenceItem}>
+              <img src={photo.url} alt="증거사진" className={styles.evidenceImg} />
+              {!isReadOnly && (
+                <button className={styles.evidenceDeleteBtn} onClick={() => handleDeleteEvidence(photo.id)} disabled={isDeleting}>✖</button>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>

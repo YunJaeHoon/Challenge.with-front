@@ -1,20 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import styles from "./ChallengeInfoPageStyle.module.css";
+import { COLOR_MAP } from "./colorUtil";
 
-const COLOR_MAP = {
-  RED: "#ff5a5a",
-  ORANGE: "#ff9900",
-  YELLOW: "#ffd600",
-  GREEN: "#22c55e",
-  SKYBLUE: "#38bdf8",
-  BLUE: "#2563eb",
-  PRUPLE: "#a259ff",
-  PINK: "#ff6fcb",
-  GRAY: "#bdbdbd",
-};
-
-function Roadmap({ challengeInfo, subInfo, colorTheme, participantInfoList }) {
-  if (!subInfo || !subInfo.eachRoadmapInfoList || !participantInfoList) return null;
+function Roadmap({ challengeInfo, subInfo, colorTheme = 'GREEN', participantInfoList = [] }) {
+  if (!subInfo || !subInfo.eachRoadmapInfoList || !participantInfoList.length) return null;
   const themeColor = COLOR_MAP[colorTheme] || COLOR_MAP.GREEN;
   const { phaseInfo, eachRoadmapInfoList } = subInfo;
 
@@ -23,7 +12,6 @@ function Roadmap({ challengeInfo, subInfo, colorTheme, participantInfoList }) {
 
   // 설명 토글 상태
   const [showDesc, setShowDesc] = useState(false);
-  // phaseTitle 툴팁 상태
   const [showTitleTooltip, setShowTitleTooltip] = useState(false);
 
   return (
@@ -53,7 +41,7 @@ function Roadmap({ challengeInfo, subInfo, colorTheme, participantInfoList }) {
                     {phaseInfo.name}
                   </div>
                 )}
-                {/* 페이즈 설명 말풍선 튤팁 */}
+                {/* 페이즈 설명 말풍선 툴팁 */}
                 {showDesc && (
                   <div className={styles.phaseDescBalloon}>
                     {phaseInfo.description}
@@ -83,6 +71,11 @@ function Roadmap({ challengeInfo, subInfo, colorTheme, participantInfoList }) {
                       {roadmap.participatePhaseInfo.comment && (
                         <div className={styles.roadmapCommentBox}>
                           {roadmap.participatePhaseInfo.comment}
+                        </div>
+                      )}
+                      {!roadmap.participatePhaseInfo.comment && (
+                        <div className={styles.roadmapCommentBox}>
+                          도전자의 한마디가 없습니다.
                         </div>
                       )}
                     </div>

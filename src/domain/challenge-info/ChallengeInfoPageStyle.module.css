@@ -152,6 +152,7 @@
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #e5e7eb;
+  margin-left: 6px;
 }
 .participantInfo {
   display: flex;
@@ -749,5 +750,60 @@
   margin-top: 0;
   flex-shrink: 0;
   width: 100%;
+}
+
+/* 페이즈 네비게이션 버튼 (phaseNumber 조절) */
+.phaseNavBtn {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  max-width: 40px;
+  max-height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid #2563eb;
+  background: #fff;
+  color: #2563eb;
+  font-size: 1rem;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  box-sizing: border-box;
+  vertical-align: middle;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+  margin: 0 10px;
+}
+.phaseNavBtn:hover:not(:disabled) {
+  background: #2563eb;
+  color: #fff;
+}
+.phaseNavBtn:disabled {
+  background: #f0f0f0;
+  color: #bbb;
+  border: 1.5px solid #ddd;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.evidenceAddBtn {
+  display: inline-block;
+  padding: 6px 16px;
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-left: 12px;
+}
+.evidenceAddBtn:hover {
+  background: #16a34a;
 }
 
