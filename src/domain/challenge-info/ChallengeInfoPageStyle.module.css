@@ -695,3 +695,59 @@
   filter: drop-shadow(0 2px 2px rgba(0,0,0,0.04));
 }
 
+.toggleBtn {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  min-height: 60px;
+  max-width: 60px;
+  max-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgb(71, 71, 71);
+  border-radius: 50%;
+  background: #eee;
+  color: #222;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+  outline: none;
+  position: relative;
+  padding: 0;
+  box-sizing: border-box;
+}
+.toggleBtn[aria-pressed="true"] {
+  background: var(--toggle-active-bg, #22c55e);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(34,197,94,0.15);
+}
+.toggleBtn img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
+}
+
+.myStatusPhaseTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+  overflow: visible;
+  text-overflow: unset;
+  white-space: normal;
+  display: block;
+}
+
+.myStatusPhaseDate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 0;
+  margin-top: 0;
+  flex-shrink: 0;
+  width: 100%;
+}
+

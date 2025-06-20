@@ -146,11 +146,11 @@ function MyStatus({ challengeInfo, subInfo, colorTheme }) {
       </div>
       {/* 페이즈 정보 */}
       <div className={styles.myStatusPhaseBox}>
-        <div className={styles.phaseTitle}>{phaseInfo.name}</div>
+        <div className={styles.myStatusPhaseTitle}>{phaseInfo.name}</div>
         {phaseInfo.description && (
           <div className={styles.phaseDesc}>{phaseInfo.description}</div>
         )}
-        <div className={styles.phaseDate}>
+        <div className={styles.myStatusPhaseDate}>
           <span className={styles.phaseDateTag} style={{ background: themeColor + '22', color: themeColor }}>{phaseInfo.startDate}</span>
           <span className={styles.phaseDateTilde}>~</span>
           <span className={styles.phaseDateTag} style={{ background: themeColor + '22', color: themeColor }}>{phaseInfo.endDate}</span>

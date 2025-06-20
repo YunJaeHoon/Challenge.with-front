@@ -3,6 +3,7 @@ import { sendApi } from "../../../utils/apiUtil";
 import { LanguageContext, AccountBasicInfoContext } from "../../../App";
 import axios from "axios";
 import * as RemixIcons from "@remixicon/react";
+import { useNavigate } from "react-router-dom";
 
 import style from "./ChallengeInfoStyle.module.css";
 import checkIcon from "../../../assets/CheckIcon.svg";
@@ -41,6 +42,8 @@ function ChallengeInfo({ challenge }) {
 
   // 아이콘 컴포넌트 동적 생성
   const IconComponent = RemixIcons[challenge.icon];
+
+  const navigate = useNavigate();
 
   // 페이즈 완료 토글
   const toggleCompleteCount = async () => {
@@ -233,7 +236,11 @@ function ChallengeInfo({ challenge }) {
   }
 
   return (
-    <div className={style["container"]}>
+    <div
+      className={style["container"]}
+      onClick={() => navigate(`/challenge/${challenge.challengeId}`)}
+      style={{ cursor: 'pointer' }}
+    >
 
       <div className={style["challenge-header"]} style={{background: COLOR_THEME_MAP[challenge.colorTheme]}}>
         
@@ -297,7 +304,7 @@ function ChallengeInfo({ challenge }) {
         {
           challenge.goalCount === 1 ?
 
-          <div className={style["update-toggle-container"]} onClick={toggleCompleteCount}>
+          <div className={style["update-toggle-container"]} onClick={e => { e.stopPropagation(); toggleCompleteCount(); }}>
             {
               completeCount === 1 &&
               <img src={checkIcon} className={style["check-icon"]} alt="완료" />
@@ -307,11 +314,11 @@ function ChallengeInfo({ challenge }) {
           :
 
           <div className={style["update-count-container"]}>
-            <img src={decreaseCountIcon} className={style["update-count-icon"]} onClick={decreaseCompleteCount} alt="감소" />
+            <img src={decreaseCountIcon} className={style["update-count-icon"]} onClick={e => { e.stopPropagation(); decreaseCompleteCount(); }} alt="감소" />
             <div className={style["complete-count"]} style={{backgroundColor: `${COLOR_THEME_MAP[challenge.colorTheme]}50`}}>
               {completeCount} / {challenge.goalCount}
             </div>
-            <img src={increaseCountIcon} className={style["update-count-icon"]} onClick={increaseCompleteCount} alt="증가" />
+            <img src={increaseCountIcon} className={style["update-count-icon"]} onClick={e => { e.stopPropagation(); increaseCompleteCount(); }} alt="증가" />
           </div>
         }
 
@@ -326,7 +333,7 @@ function ChallengeInfo({ challenge }) {
             <div className={style["comment-description"]}>한마디</div>
             <div
               className={`${style["comment-update-button"]} ${isChangingComment ? style["comment-update-button-active"] : ""}`}
-              onClick={toggleUpdateComment}
+              onClick={e => { e.stopPropagation(); toggleUpdateComment(e); }}
             >
               {isChangingComment ? "완료" : "수정하기"}
             </div>
@@ -353,6 +360,7 @@ function ChallengeInfo({ challenge }) {
           onChange={changeComment}
           placeholder={language == "KOREAN" ? "한마디를 입력하세요." : "Enter a comment."}
           disabled={!isChangingComment ? true : false}
+          onClick={e => e.stopPropagation()}
         />
 
       </div>
@@ -372,6 +380,7 @@ function ChallengeInfo({ challenge }) {
             htmlFor="evidence-photo-input" 
             className={`${style["evidence-photo-insert-button"]} ${isUploadingPhotos ? style["deactivated-evidence-photo-insert-button"] : ""}`}
             style={{ cursor: isUploadingPhotos ? 'default' : 'pointer' }}
+            onClick={e => e.stopPropagation()}
           >
             {isUploadingPhotos ? "업로드 중..." : "증거사진 추가"}
           </label>
@@ -383,6 +392,7 @@ function ChallengeInfo({ challenge }) {
             onChange={addEvidencePhotos}
             disabled={isUploadingPhotos}
             style={{ display: 'none' }}
+            onClick={e => e.stopPropagation()}
           />
         </div>
       </div>
@@ -397,7 +407,7 @@ function ChallengeInfo({ challenge }) {
               <img src={evidencePhoto.url} className={style["evidence-photo"]} />
               <button 
                 className={style["delete-evidence-photo-button"]}
-                onClick={() => deleteEvidencePhoto(evidencePhoto.evidencePhotoId)}
+                onClick={e => { e.stopPropagation(); deleteEvidencePhoto(evidencePhoto.evidencePhotoId); }}
                 disabled={isDeletingPhoto}
               >
                 ✖

@@ -8,11 +8,6 @@ import MyStatus from "./MyStatus";
 import Roadmap from "./Roadmap";
 import { sendApi } from "../../utils/apiUtil";
 
-// 컴포넌트 임포트 (추후 생성)
-// import ChallengeHeader from "./ChallengeHeader";
-// import ParticipantList from "./ParticipantList";
-// import MyStatus from "./MyStatus";
-
 function ChallengeInfoPage() {
   const { challengeId } = useParams();
   const [challengeData, setChallengeData] = useState(null);
