@@ -5,6 +5,7 @@ import style from "./ChallengeInfoPageStyle.module.css"
 import ChallengeHeader from "./ChallengeHeader";
 import ParticipantList from "./ParticipantList";
 import MyStatus from "./MyStatus";
+import Roadmap from "./Roadmap";
 import { sendApi } from "../../utils/apiUtil";
 
 // 컴포넌트 임포트 (추후 생성)
@@ -52,9 +53,13 @@ function ChallengeInfoPage() {
           <ParticipantList participants={participantInfoList} maxParticipantCount={challengeInfo.maxParticipantCount} colorTheme={challengeInfo.colorTheme} />
         </div>
         {/* 우측: 본인 현황 (참여자일 때) */}
-        {isParticipatingChallenge && (
+        {isParticipatingChallenge ? (
           <div className={style.right}>
             <MyStatus challengeInfo={challengeInfo} subInfo={challengeSubInfo} colorTheme={challengeInfo.colorTheme}/>
+          </div>
+        ) : (
+          <div className={style.right}>
+            <Roadmap challengeInfo={challengeInfo} subInfo={challengeSubInfo} colorTheme={challengeInfo.colorTheme} participantInfoList={participantInfoList}/>
           </div>
         )}
       </div>
