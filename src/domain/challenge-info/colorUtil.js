@@ -6,9 +6,9 @@ export const COLOR_MAP = {
   GREEN: "#22c55e",
   SKYBLUE: "#38bdf8",
   BLUE: "#2563eb",
-  PRUPLE: "#a259ff",
+  PURPLE: "#a259ff",
   PINK: "#ff6fcb",
-  GRAY: "#bdbdbd",
+  GRAY: "#999999",
 };
 
 // 챌린지 단위 텍스트 반환

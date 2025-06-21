@@ -171,7 +171,7 @@ function MyStatus({ challengeInfo, subInfo, colorTheme = 'GREEN', isReadOnly = f
       <div className={styles.myStatusCommentBox}>
         <div className={styles.commentHeader}>
           <span className={styles.commentTitle}>한마디</span>
-          {!isReadOnly && <button onClick={handleCommentEdit} className={styles.commentEditBtn}>{isEditingComment ? "완료" : "수정"}</button>}
+          {!isReadOnly && <button onClick={handleCommentEdit} className={styles.commentEditBtn} style={{ background: themeColor }}>{isEditingComment ? "완료" : "수정"}</button>}
           <span className={styles.commentError}>{commentError}</span>
         </div>
         {isEditingComment ? (
@@ -182,9 +182,11 @@ function MyStatus({ challengeInfo, subInfo, colorTheme = 'GREEN', isReadOnly = f
       </div>
       {/* 증거사진 */}
       <div className={styles.myStatusEvidenceBox}>
-        <div className={styles.evidenceHeader}>증거사진
+        <div className={styles.evidenceHeader}>
+          증거사진
+          <span className={styles.evidenceCount}>{evidencePhotos.length} / {participatePhaseInfo.maxEvidencePhotoCount}</span>
           {!isReadOnly && (
-            <label className={styles.evidenceAddBtn}>
+            <label className={styles.evidenceAddBtn} style={{ background: themeColor }}>
               {isUploading ? '업로드 중...' : '+ 추가'}
               <input type="file" multiple accept="image/*" style={{ display: 'none' }} onChange={handleAddEvidence} disabled={isUploading} />
             </label>

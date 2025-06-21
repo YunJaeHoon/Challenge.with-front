@@ -8,19 +8,7 @@ import MyStatus from "./MyStatus";
 import Roadmap from "./Roadmap";
 import { sendApi } from "../../utils/apiUtil";
 import { AccountBasicInfoContext } from "../../App";
-
-// COLOR_MAP: challenge colorTheme에 따른 색상 매핑
-const COLOR_MAP = {
-  RED: "#ff5a5a",
-  ORANGE: "#ff9900",
-  YELLOW: "#ffd600",
-  GREEN: "#22c55e",
-  SKYBLUE: "#38bdf8",
-  BLUE: "#2563eb",
-  PRUPLE: "#a259ff",
-  PINK: "#ff6fcb",
-  GRAY: "#bdbdbd",
-};
+import { COLOR_MAP } from "./colorUtil";
 
 function ChallengeInfoPage() {
   const { challengeId } = useParams();
@@ -201,7 +189,7 @@ function ChallengeInfoPage() {
             style={{
               fontWeight: 'bold',
               background: selectedTab === 'myStatus' || tabHover === 'myStatus' ? themeColor : '#ffffff',
-              color: selectedTab === 'myStatus' || tabHover === 'myStatus' ? '#fff' : themeColor,
+              color: selectedTab === 'myStatus' || tabHover === 'myStatus' ? '#ffffff' : themeColor,
               border: selectedTab === 'myStatus' ? 'none' : `1.5px solid ${themeColor}`,
               borderRadius: 8,
               padding: '8px 20px',
@@ -284,8 +272,7 @@ function ChallengeInfoPage() {
         </div>
         {/* 우측: 본인 현황/로드맵 탭 */}
         <div className={style.right}>
-          {/* 본인 현황: 본인 선택 or 아무도 선택 안 했을 때 */}
-          {selectedTab !== 'roadmap' && selectedUserId && accountBasicInfo !== null && accountBasicInfo !== undefined &&  selectedUserId === accountBasicInfo.userId && (
+          {selectedTab !== 'roadmap' && selectedUserId && accountBasicInfo !== null && accountBasicInfo !== undefined && selectedUserId === accountBasicInfo.userId ? (
             myStatusLoading ? (
               <div className={style.loading}>로딩 중...</div>
             ) : myStatusError ? (
@@ -293,9 +280,8 @@ function ChallengeInfoPage() {
             ) : myStatusData ? (
               <MyStatus challengeInfo={challengeInfo} subInfo={myStatusData} colorTheme={challengeInfo.colorTheme} isReadOnly={false} myUserId={accountBasicInfo.userId} targetUserId={accountBasicInfo.userId}/>
             ) : null
-          )}
-          {/* 타인 현황: 본인이 아닌 참가자 선택 시 */}
-          {selectedTab !== 'roadmap' && (
+          ) :
+          selectedTab !== 'roadmap' ? (
             otherStatusLoading ? (
               <div className={style.loading}>로딩 중...</div>
             ) : otherStatusError ? (
@@ -303,8 +289,8 @@ function ChallengeInfoPage() {
             ) : otherStatusData ? (
               <MyStatus challengeInfo={challengeInfo} subInfo={otherStatusData} colorTheme={challengeInfo.colorTheme} isReadOnly={true} nickname={selectedUserNickname} myUserId={null} targetUserId={selectedUserId}/>
             ) : null
-          )}
-          {selectedTab === 'roadmap' && (
+          ) :
+          selectedTab === 'roadmap' && (
             roadmapLoading ? (
               <div className={style.loading}>로딩 중...</div>
             ) : roadmapError ? (
