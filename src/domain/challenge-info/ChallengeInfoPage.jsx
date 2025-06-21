@@ -268,6 +268,7 @@ function ChallengeInfoPage() {
             colorTheme={challengeInfo.colorTheme}
             onParticipantClick={handleParticipantClick}
             selectedUserId={selectedUserId}
+            challengeId={challengeInfo.id}
           />
         </div>
         {/* 우측: 본인 현황/로드맵 탭 */}

@@ -114,13 +114,16 @@
 .participantList {
   width: 100%;
 }
-.participantTitle {
-  height: 55px;
+.participantTitleContainer {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  height: 55px;
+  margin-bottom: 18px;
+}
+.participantTitle {
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 18px;
 }
 .participantUl {
   list-style: none;
@@ -801,6 +804,159 @@
   margin-left: 12px;
 }
 .evidenceAddBtn:hover {
-  filter: brightness(0.8);
+  background: #f0f0f0;
+}
+
+/* =====================
+   초대 모달 스타일
+   ===================== */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modalHeader h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.closeButton:hover {
+  background-color: #f0f0f0;
+}
+
+.modalBody {
+  padding: 20px 24px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.cancelButton {
+  background: #f0f0f0;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #666;
+  transition: background-color 0.2s;
+}
+
+.cancelButton:hover {
+  background: #e0e0e0;
+}
+
+.cancelButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.friendList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.friendItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.friendItem:hover {
+  background-color: #f8f9fa;
+  border-color: #d1d5db;
+}
+
+.friendItem.selected {
+  background-color: #e3f2fd;
+  border-color: #2196f3;
+}
+
+.friendProfileImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e5e7eb;
+}
+
+.friendNickname {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.loading, .error, .emptyMessage {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 1rem;
+}
+
+.error {
+  color: #d32f2f;
+  background-color: #ffebee;
+  border-radius: 6px;
+  margin-top: 12px;
+}
+
+.emptyMessage {
+  color: #666;
+  font-style: italic;
 }
 
